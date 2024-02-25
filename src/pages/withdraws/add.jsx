@@ -308,7 +308,7 @@ function AddWithdrawPage() {
                 </div>
               </td>
               <td>
-                <b> الشركة </b>
+                <b> المشروع </b>
               </td>
             </tr>
             {/*  */}

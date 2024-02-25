@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import Loading from "./loading";
 import { SYSTEM_URL } from "../global";
-
+import logo from "./deposits/logo.png";
 // db password Qymbg5QhNbAzRn!
 
 function NavBar() {
@@ -33,100 +33,75 @@ function NavBar() {
   return (
     <>
       <nav
-        className="navbar navbar-expand-sm navbar-dark rounded p-2"
+        className="navbar navbar-expand-sm navbar-dark  text-center rounded p-2"
         id="no-print"
       >
         <div className="container-fluid d-flex justify-content-between">
           {/* Start of the main navbar content */}
           <div>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <a className="navbar-brand text-primary p-2">
-                <Link className="nav-link text-primary" to="/containers">
-                  <h3>
-                    <b>حساباتي</b>
-                  </h3>
+            <Link className="navbar-brand text-primary p-2" to="/containers">
+              <img src={logo} alt="" srcset="" width={50} />
+            </Link>
+            <button
+              className="navbar-toggler bg-dark"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item rounded m-1">
+                <Link className={navLinkClassName} to="/containers">
+                  <h5>القاصات</h5>
                 </Link>
-              </a>
-              <button
-                className="navbar-toggler bg-dark"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-
-              {localStorage.getItem("user_type") === "admin" ? (
-                <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav">
-                    <li className="nav-item rounded m-1">
-                      <Link className={navLinkClassName} to="/containers">
-                        <h5>القاصات</h5>
-                      </Link>
-                    </li>
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/companies">
-                        <h5>الشركات</h5>
-                      </Link>
-                    </li>
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/withdraws">
-                        <h5>الصرفيات</h5>
-                      </Link>
-                    </li>
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/deposits">
-                        <h5>الايداعات</h5>
-                      </Link>
-                    </li>
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/withdraw_types">
-                        <h5> القيود</h5>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              ) : localStorage.getItem("user_type") === "supervisor" ? (
-                <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav">
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/withdraws">
-                        <h5>الصرفيات</h5>
-                      </Link>
-                    </li>
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/deposits">
-                        <h5>الايداعات</h5>
-                      </Link>
-                    </li>
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/withdraw_types">
-                        <h5> القيود</h5>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              ) : (
-                <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav">
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/withdraws">
-                        <h5>الصرفيات</h5>
-                      </Link>
-                    </li>
-
-                    <li className="nav-item rounded border-4 m-1">
-                      <Link className={navLinkClassName} to="/withdraw_types">
-                        <h5> القيود</h5>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/personal">
+                  <h5>شخصي</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/companies">
+                  <h5>المشاريع</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/withdraws">
+                  <h5>الصرفيات</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/deposits">
+                  <h5>الايداعات</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/withdraw_types">
+                  <h5> القيود</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/invoices">
+                  <h5> الفواتير</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/building_calcs">
+                  <h5> ذرعات البنايات</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/worker_calcs">
+                  <h5> ذرعات الخلفات</h5>
+                </Link>
+              </li>
+            </ul>
           </div>
           {/* End of the main navbar content */}
 

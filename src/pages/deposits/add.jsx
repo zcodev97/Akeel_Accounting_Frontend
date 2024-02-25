@@ -11,6 +11,12 @@ function AddDepositPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   const [totalDinar, setTotalDinar] = useState(0);
   const [totalDollar, setTotalDollar] = useState(0);
   const [description, setDescription] = useState("");
@@ -90,43 +96,47 @@ function AddDepositPage() {
   function addRecord() {
     if (window.confirm("هل انت متاكد ؟") == true) {
       setLoading(true);
+      const formData = new FormData();
+      formData.append("document", selectedFile);
+      for (var key of formData.entries()) {
+        fetch(SYSTEM_URL + "create_deposit/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
 
-      fetch(SYSTEM_URL + "create_deposit/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-
-        body: JSON.stringify({
-          container: selectedContainer.value,
-          company_name: selectedCompany.value,
-          price_in_dinar: totalDinar,
-          price_in_dollar: totalDollar,
-          received_from: receivedFrom,
-          description: description,
-          created_by: localStorage.getItem("user_id"),
-          created_at: recordDate,
-        }),
-      })
-        .then((response) => {
-          console.log(response.content);
-          if (response.status === 200) {
-            return response.json();
-          }
-          return {};
+          body: JSON.stringify({
+            container: selectedContainer.value,
+            company_name: selectedCompany.value,
+            price_in_dinar: totalDinar,
+            price_in_dollar: totalDollar,
+            received_from: receivedFrom,
+            description: description,
+            created_by: localStorage.getItem("user_id"),
+            created_at: recordDate,
+            // document: key[1],
+          }),
         })
-        .then((data) => {
-          alert("تم اضافة سجل ");
-          navigate("/deposits", { replace: true });
-        })
-        .catch((error) => {
-          console.log(error);
-          alert(error + "😕");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+          .then((response) => {
+            console.log(response.content);
+            if (response.status === 200) {
+              return response.json();
+            }
+            return {};
+          })
+          .then((data) => {
+            alert("تم اضافة سجل ");
+            navigate("/deposits", { replace: true });
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error + "😕");
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     } else {
       alert("لقد الغيت عملية الأضافة");
     }
@@ -271,7 +281,7 @@ function AddDepositPage() {
                 </div>
               </td>
               <td>
-                <b> الشركة </b>
+                <b> المشروع </b>
               </td>
             </tr>
             {/*  */}
@@ -294,7 +304,6 @@ function AddDepositPage() {
               </td>
             </tr>
             {/*  */}
-
             <tr>
               <td>
                 <div className="container border border-dark pt-2 pb-2 rounded">
@@ -309,6 +318,17 @@ function AddDepositPage() {
               </td>
               <td>
                 <b> تاريخ السجل </b>
+              </td>
+            </tr>
+            {/*  */}
+            <tr>
+              <td>
+                <div>
+                  <input type="file" onChange={handleFileChange} />
+                </div>
+              </td>
+              <td>
+                <b> الملف </b>
               </td>
             </tr>
           </tbody>

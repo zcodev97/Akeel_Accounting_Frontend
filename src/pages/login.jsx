@@ -27,6 +27,7 @@ function Login() {
       .then((data) => {
         if (data.detail) {
           alert(data.detail);
+          navigate("/login", { replace: true });
           return;
         }
 

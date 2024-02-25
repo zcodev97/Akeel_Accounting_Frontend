@@ -18,6 +18,17 @@ import PersonTypePage from "./pages/withdraw_types/records";
 import AddPersonTypePage from "./pages/withdraw_types/add";
 import WithDrawReportPage from "./pages/withdraws/report";
 import DepositsReportPage from "./pages/deposits/report";
+import PersonalCompaniesPage from "./pages/personal/records";
+import AddPersonalPage from "./pages/personal/add";
+import InvoiceDetialsPage from "./pages/invoices/details";
+import AddInvoicePage from "./pages/invoices/add";
+import InvoicesPage from "./pages/invoices/records";
+import BuildingCalcDetailsPage from "./pages/building calc/details";
+import AddBuildingCalcPage from "./pages/building calc/add";
+import BuildingCalcsPage from "./pages/building calc/records";
+import WorkerCalcDetailsPage from "./pages/worker calc/details";
+import AddWorkerCalcPage from "./pages/worker calc/add";
+import WorkerCalcsPage from "./pages/worker calc/records";
 
 function App() {
   return (
@@ -28,11 +39,12 @@ function App() {
             <Route
               path="/"
               element={
-                localStorage.getItem("token") === undefined ? (
-                  <LoginPage />
-                ) : (
-                  <ContainersPage />
-                )
+                <InvoiceDetialsPage />
+                // localStorage.getItem("token") === undefined ? (
+                //   <LoginPage />
+                // ) : (
+                //   <ContainersPage />
+                // )
               }
             />
 
@@ -44,6 +56,8 @@ function App() {
             />
             <Route path="/add_container" element={<AddContainerPage />} />
             <Route path="/companies" element={<CompaniesPage />} />
+            <Route path="/personal" element={<PersonalCompaniesPage />} />
+            <Route path="/add_personal" element={<AddPersonalPage />} />
             <Route path="/company_details" element={<CompanyDetailsPage />} />
             <Route path="/add_company" element={<AddCompanyPage />} />
 
@@ -59,6 +73,30 @@ function App() {
             <Route path="/deposit_details" element={<DepositDetailsPage />} />
             <Route path="/add_deposit" element={<AddDepositPage />} />
 
+            {/* invoices */}
+            <Route path="/invoice_details" element={<InvoiceDetialsPage />} />
+            <Route path="/add_invoice" element={<AddInvoicePage />} />
+            <Route path="/invoices" element={<InvoicesPage />} />
+
+            {/* building calc  */}
+            <Route
+              path="/building_calc_details"
+              element={<BuildingCalcDetailsPage />}
+            />
+            <Route
+              path="/add_building_calc"
+              element={<AddBuildingCalcPage />}
+            />
+            <Route path="/building_calcs" element={<BuildingCalcsPage />} />
+
+            {/* worker calc */}
+            <Route
+              path="/worker_calc_details"
+              element={<WorkerCalcDetailsPage />}
+            />
+            <Route path="/add_worker_calc" element={<AddWorkerCalcPage />} />
+            <Route path="/worker_calcs" element={<WorkerCalcsPage />} />
+            {/*  */}
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>

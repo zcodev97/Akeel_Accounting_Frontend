@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { SYSTEM_URL } from "../../global";
 import Select from "react-select";
 
-function AddCompanyPage() {
+function AddPersonalPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -48,39 +48,6 @@ function AddCompanyPage() {
       });
   }
 
-  // kitmans drop down menu
-  const [selectedCompanyType, setSelectedCompanyType] = useState({});
-  const [companyTypeDropDownMenu, setCompanyTypeDropDownMenu] = useState([]);
-  let dropdownMenuCompanyTypeTemp = [];
-
-  async function loadCompanyType() {
-    setLoading(true);
-
-    fetch(SYSTEM_URL + "company_type/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        response.forEach((i) => {
-          dropdownMenuCompanyTypeTemp.push({
-            label: i.title,
-            value: i.id,
-          });
-        });
-        setCompanyTypeDropDownMenu(dropdownMenuCompanyTypeTemp);
-      })
-      .catch((e) => {
-        alert(e);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-
   function addCompany() {
     // if (window.confirm("هل انت متاكد ؟") == true) {
 
@@ -99,7 +66,7 @@ function AddCompanyPage() {
       body: JSON.stringify({
         title: name,
         container: selectedContainer.value,
-        company_type: "eebf995c-c4e4-446b-89e2-790eeea213e5",
+        company_type: "5e5812d5-e9f6-49bc-941f-475e4d8c1ce9",
         total_dinar: 0,
         total_dollar: 0,
         created_by: localStorage.getItem("user_id"),
@@ -114,7 +81,7 @@ function AddCompanyPage() {
       })
       .then((data) => {
         alert("تم اضافة سجل ");
-        navigate("/companies", { replace: true });
+        navigate("/personal", { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -127,7 +94,6 @@ function AddCompanyPage() {
 
   useEffect(() => {
     loadContainers();
-    loadCompanyType();
   }, []);
 
   return (
@@ -162,7 +128,7 @@ function AddCompanyPage() {
                 />
               </td>
               <td>
-                <b> الاسم</b>
+                <b> الاسم </b>
               </td>
             </tr>
             {/*  */}
@@ -201,7 +167,6 @@ function AddCompanyPage() {
               </td>
             </tr> */}
             {/*  */}
-
             {/*  */}
             <tr>
               <td style={{ fontWeight: "bold" }}>
@@ -243,4 +208,4 @@ function AddCompanyPage() {
   );
 }
 
-export default AddCompanyPage;
+export default AddPersonalPage;

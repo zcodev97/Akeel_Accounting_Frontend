@@ -11,6 +11,7 @@ import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import jsPDF from "jspdf";
 import font from "../Amiri-Regular-normal";
 import html2canvas from "html2canvas";
+import logo from "./logo.png";
 
 function WithDrawDetialsPage() {
   const location = useLocation();
@@ -81,27 +82,15 @@ function WithDrawDetialsPage() {
       <table id="mytable" ref={tableRef} className="table p-2 text-center mt-4">
         <thead className="mt-4">
           <tr>
-            <td> </td>
-            <td
-              colSpan={4}
-              className="text-center bg-success text-light rounded"
-            >
-              <div className="container text-center">
-                <div className="container">
-                  <h3>
-                    شركة
-                    <b>
-                      {"  "}
-                      {location.state.company_name} {"  "}
-                    </b>
-                  </h3>
-                </div>
-                <h4>
-                  <b> قسم الحسابات</b>
-                </h4>
-                <h4>
-                  <b>سند صرف</b>
-                </h4>
+            <td>
+              {" "}
+              <img src={logo} alt="" srcset="" width={250} />{" "}
+            </td>
+            <td colSpan={4} className="text-end  text-dark rounded">
+              <div className="container-fluid text-end">
+                <h3>
+                  <b> قسم الحسابات</b> -<b> صرف سلفه</b>
+                </h3>
               </div>
             </td>
 
@@ -109,6 +98,17 @@ function WithDrawDetialsPage() {
           </tr>
         </thead>
         <tbody style={{ borderStyle: "" }}>
+          <tr>
+            <td></td> <td></td> <td></td>{" "}
+            <td className="text-end">
+              <h4> {location.state.company_name} </h4>
+            </td>
+            <td className="text-end">
+              <h4>
+                <b> اسم المشروع</b>{" "}
+              </h4>
+            </td>
+          </tr>
           <tr>
             <td></td> <td></td> <td></td>{" "}
             <td className="text-end">
@@ -221,6 +221,17 @@ function WithDrawDetialsPage() {
             <td className="text-start">
               {" "}
               <h4> الحسابات </h4>
+            </td>
+          </tr>
+          <tr colSpan={2} className="text-center">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              www.nurarch.com | IQ : +964 770 968 11 35 |TR : +90 539 77 290 77
+              | info@nurarch.com 2 nd Floor, Aamal Bld , Amerat St.11 , Mansour
+              , Baghdad, Iraq Yakuplu Mh , Gocman sk , No:1 , D:18 , Beylikduzu
+              , Istanbul , Turkey
             </td>
           </tr>
           <br /> <br /> <br />

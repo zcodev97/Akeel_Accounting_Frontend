@@ -14,7 +14,9 @@ function DepositsPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [deposits, setDeposits] = useState([]);
-  const [withdraws, setWithdraws] = useState([]);
+
+  const [totalDepositsDinar, setTotalDepositsDinar] = useState(0);
+  const [totalDepositsDollar, setTotalDepositsDollar] = useState(0);
 
   async function loadAdminDeposits() {
     setLoading(true);
@@ -27,6 +29,17 @@ function DepositsPage() {
     })
       .then((response) => response.json())
       .then((data) => {
+        setTotalDepositsDinar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dinar;
+          }, 0)
+        );
+
+        setTotalDepositsDollar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dollar;
+          }, 0)
+        );
         data.map((i) => {
           i.price_in_dinar = i.price_in_dinar.toLocaleString("en-US", {
             style: "currency",
@@ -70,6 +83,17 @@ function DepositsPage() {
     )
       .then((response) => response.json())
       .then((data) => {
+        setTotalDepositsDinar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dinar;
+          }, 0)
+        );
+
+        setTotalDepositsDollar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dollar;
+          }, 0)
+        );
         data.map((i) => {
           i.price_in_dinar = i.price_in_dinar.toLocaleString("en-US", {
             style: "currency",
@@ -132,7 +156,7 @@ function DepositsPage() {
     },
     {
       dataField: "company_name",
-      text: "اسم الشركة",
+      text: "اسم المشروع",
       sort: true,
       filter: textFilter(),
     },
@@ -189,6 +213,7 @@ function DepositsPage() {
       ? loadDeposits()
       : loadAdminDeposits();
   }, []);
+
   return (
     <>
       <NavBar />
@@ -222,6 +247,34 @@ function DepositsPage() {
         >
           <b> تقرير </b>
         </div>
+      </div>
+      <div className="container text-center">
+        <table className="table table-strpied table-hover ">
+          <tbody>
+            <tr>
+              <td className="text-end">
+                {totalDepositsDinar.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "IQD",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}
+              </td>
+              <td>مجموع الدينار</td>
+            </tr>
+            <tr>
+              <td className="text-end">
+                {totalDepositsDollar.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}
+              </td>
+              <td>مجموع الدولار</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <BootstrapTable
         className="text-center"

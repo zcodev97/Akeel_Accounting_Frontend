@@ -15,6 +15,8 @@ function WithdrawsPage() {
   const [loading, setLoading] = useState(false);
 
   const [withdraws, setWithdraws] = useState([]);
+  const [totalWithdrawsDinar, setTotalWithdrawsDinar] = useState(0);
+  const [totalWithdrawsDollar, setTotalWithdrawsDollar] = useState(0);
 
   const pagination = paginationFactory({
     page: 1,
@@ -56,6 +58,17 @@ function WithdrawsPage() {
     })
       .then((response) => response.json())
       .then((data) => {
+        setTotalWithdrawsDinar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dinar;
+          }, 0)
+        );
+
+        setTotalWithdrawsDollar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dollar;
+          }, 0)
+        );
         data.map((i) => {
           i.price_in_dinar = i.price_in_dinar.toLocaleString("en-US", {
             style: "currency",
@@ -98,6 +111,17 @@ function WithdrawsPage() {
     )
       .then((response) => response.json())
       .then((data) => {
+        setTotalWithdrawsDinar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dinar;
+          }, 0)
+        );
+
+        setTotalWithdrawsDollar(
+          data.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.price_in_dollar;
+          }, 0)
+        );
         data.map((i) => {
           i.price_in_dinar = i.price_in_dinar.toLocaleString("en-US", {
             style: "currency",
@@ -166,7 +190,7 @@ function WithdrawsPage() {
     },
     {
       dataField: "company_name",
-      text: "اسم الشركة",
+      text: "اسم المشروع",
       sort: true,
       filter: textFilter(),
     },
@@ -228,6 +252,36 @@ function WithdrawsPage() {
           <b> تقرير </b>
         </div>
       </div>
+
+      <div className="container text-center">
+        <table className="table table-strpied table-hover ">
+          <tbody>
+            <tr>
+              <td className="text-end">
+                {totalWithdrawsDinar.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "IQD",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}
+              </td>
+              <td>مجموع الدينار</td>
+            </tr>
+            <tr>
+              <td className="text-end">
+                {totalWithdrawsDollar.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}
+              </td>
+              <td>مجموع الدولار</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <BootstrapTable
         className="text-center"
         hover={true}

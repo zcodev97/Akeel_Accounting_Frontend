@@ -9,15 +9,18 @@ import { SYSTEM_URL, formatDate } from "../../global";
 import Loading from "../loading";
 import NavBar from "../navbar";
 
-function CompaniesPage() {
+function BuildingCalcsPage() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
+  const [totalDinar, setTotalDinar] = useState(0);
+  const [totalDollar, setTotalDollar] = useState(0);
+
   async function loadData() {
     setLoading(true);
-    await fetch(SYSTEM_URL + "companies/", {
+    await fetch(SYSTEM_URL + "get_all_building_calc/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,35 +29,17 @@ function CompaniesPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        let filtered_data = data.filter(
-          (i) => i.company_type?.title === "مشروع"
-        );
-        filtered_data.map((i) => {
-          i.total_dinar = i.total_dinar.toLocaleString("en-US", {
-            style: "currency",
-            currency: "IQD",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
-          });
-
-          i.total_dollar = i.total_dollar.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
-          });
-
-          i.supervisor = i.supervisor.username;
-
+        data.map((i) => {
           i.created_at = formatDate(new Date(i.created_at));
-          i.container = i.container.name;
         });
-        setData(filtered_data);
+        setData(data);
       })
       .catch((error) => {
         alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -69,32 +54,14 @@ function CompaniesPage() {
       filter: textFilter(),
     },
     {
-      dataField: "total_dollar",
-      text: "مبلغ الدولار",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "total_dinar",
-      text: "مبلغ الدينار",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "container",
-      text: "قاصة",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "supervisor",
-      text: "المسؤول",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
       dataField: "title",
-      text: "اسم المشروع",
+      text: " عنوان الفاتورة",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "invoice_id",
+      text: " رقم الفاتورة",
       sort: true,
       filter: textFilter(),
     },
@@ -102,12 +69,13 @@ function CompaniesPage() {
 
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
-      navigate("/company_details", {
+      navigate("/building_calc_details", {
         state: {
           id: row.id,
-          name: row.title,
-          total_dinar: row.total_dinar,
-          total_dollar: row.total_dollar,
+          title: row.title,
+          description: row.description,
+          created_at: row.created_at,
+          invoice_id: row.invoice_id,
         },
       });
     },
@@ -132,19 +100,48 @@ function CompaniesPage() {
       ) : (
         <div className="container-fluid p-4 text-end">
           <div className="container text-center ">
-            <h1> المشاريع</h1>
+            <h1> صفحة ذرعات البنايات</h1>
           </div>
 
           <div className="container text-center">
             <div
               className="btn btn-dark text-light p-2 mt-2 mb-2"
               onClick={() => {
-                navigate("/add_company");
+                navigate("/add_building_calc");
               }}
             >
               <h4>أضافة </h4>
             </div>
           </div>
+
+          {/* <div className="container text-center">
+            <table className="table table-strpied table-hover ">
+              <tbody>
+                <tr>
+                  <td className="text-end">
+                    {totalDinar.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "IQD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                  <td>مجموع الدينار</td>
+                </tr>
+                <tr>
+                  <td className="text-end">
+                    {totalDollar.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                  <td>مجموع الدولار</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> */}
 
           <BootstrapTable
             className="text-center"
@@ -164,4 +161,4 @@ function CompaniesPage() {
   );
 }
 
-export default CompaniesPage;
+export default BuildingCalcsPage;
