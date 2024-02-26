@@ -58,47 +58,51 @@ function BuildingCalcDetailsPage() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container-fluid p-4 text-end">
-          <div className="container text-center ">
-            <button
-              className="btn btn-warning"
-              onClick={exportToPDF}
-              id="no-print"
-            >
-              طباعة
-            </button>
-          </div>
-          <div className="container-fluid d-flex">
-            <div className="container text-start">
-              <img src={logo} alt="" srcset="" width={250} />
+        <div className="container-fluid" style={{ overflowX: "auto" }}>
+          <div className="container-fluid p-4 text-end">
+            <div className="container text-center ">
+              <button
+                className="btn btn-warning"
+                onClick={exportToPDF}
+                id="no-print"
+              >
+                طباعة
+              </button>
+            </div>
+            <div className="container-fluid d-flex">
+              <div className="container text-start">
+                <img src={logo} alt="" srcset="" width={250} />
+              </div>
+
+              <div className="container text-end" style={{ fontSize: "24px" }}>
+                {location.state.created_at} <br />
+                {location.state.invoice_id}
+              </div>
             </div>
 
-            <div className="container text-end" style={{ fontSize: "24px" }}>
-              {location.state.created_at} <br />
-              {location.state.invoice_id}
+            <div className="container text-center ">
+              <h1> حساب الذرعة</h1>
             </div>
-          </div>
 
-          <div className="container text-center ">
-            <h1> حساب الذرعة</h1>
+            <div className="container text-center">
+              <p style={{ fontSize: "20px" }}>{location.state.title}</p>
+            </div>
+            {loading ? (
+              "..."
+            ) : (
+              <div className="container-fluid" style={{ overflowX: "auto" }}>
+                <BootstrapTable
+                  className="text-center"
+                  hover={true}
+                  bordered={true}
+                  bootstrap4
+                  keyField="id"
+                  columns={columns ?? []}
+                  data={JSON.parse(location.state.description)}
+                />
+              </div>
+            )}
           </div>
-
-          <div className="container text-center">
-            <p style={{ fontSize: "20px" }}>{location.state.title}</p>
-          </div>
-          {loading ? (
-            "..."
-          ) : (
-            <BootstrapTable
-              className="text-center"
-              hover={true}
-              bordered={true}
-              bootstrap4
-              keyField="id"
-              columns={columns ?? []}
-              data={JSON.parse(location.state.description)}
-            />
-          )}
         </div>
       )}
 
