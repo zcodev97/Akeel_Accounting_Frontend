@@ -301,19 +301,22 @@ function WithDrawReportPage() {
             className="container-fluid"
             // style={{ height: 500, overflow: "auto" }}
           >
-            <BootstrapTable
-              className="text-center"
-              hover={true}
-              bordered={true}
-              striped={true}
-              bootstrap4
-              keyField="id"
-              columns={withdrawsColumns}
-              data={data}
-              // rowEvents={rowEvents}
-              pagination={pagination}
-              filter={filterFactory({ afterFilter })}
-            />
+            <div className="container-fluid" style={{ overflowX: "auto" }}>
+              <BootstrapTable
+                className="text-center"
+                hover={true}
+                bordered={true}
+                striped={true}
+                bootstrap4
+                keyField="id"
+                columns={withdrawsColumns}
+                data={data}
+                // rowEvents={rowEvents}
+                pagination={pagination}
+                filter={filterFactory({ afterFilter })}
+              />
+            </div>
+
             <div className="container text-center">
               <table className="table table-hover">
                 <tbody>
@@ -366,6 +369,16 @@ function WithDrawReportPage() {
           </table>
         </div>
       </div>
+      <footer className="footer">
+        <div className="container text-center">
+          <p>
+            www.nurarch.com | IQ : +964 770 968 11 35 |TR : +90 539 77 290 77 |
+            info@nurarch.com 2 nd Floor, Aamal Bld , Amerat St.11 , Mansour ,
+            Baghdad, Iraq Yakuplu Mh , Gocman sk , No:1 , D:18 , Beylikduzu ,
+            Istanbul , Turkey
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

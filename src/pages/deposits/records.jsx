@@ -276,18 +276,21 @@ function DepositsPage() {
           </tbody>
         </table>
       </div>
-      <BootstrapTable
-        className="text-center"
-        hover={true}
-        bordered={true}
-        bootstrap4
-        keyField="id"
-        columns={depositsColumns}
-        data={deposits}
-        rowEvents={rowEvents}
-        pagination={pagination}
-        filter={filterFactory()}
-      />
+
+      <div className="container-fluid" style={{ overflowX: "auto" }}>
+        <BootstrapTable
+          className="text-center"
+          hover={true}
+          bordered={true}
+          bootstrap4
+          keyField="id"
+          columns={depositsColumns}
+          data={deposits}
+          rowEvents={rowEvents}
+          pagination={pagination}
+          filter={filterFactory()}
+        />
+      </div>
     </>
   );
 }

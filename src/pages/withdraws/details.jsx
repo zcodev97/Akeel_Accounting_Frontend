@@ -79,6 +79,8 @@ function WithDrawDetialsPage() {
       </div>
       <hr />
 
+      <div className="container-fluid" style={{ overflowX: "auto" }}></div>
+
       <table id="mytable" ref={tableRef} className="table p-2 text-center mt-4">
         <thead className="mt-4">
           <tr>

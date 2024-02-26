@@ -91,20 +91,25 @@ function DepositDetailsPage() {
         <hr />
       </div>
 
-      <table id="mytable" ref={tableRef} className="table p-2 text-center mt-4">
-        <thead className="mt-4">
-          <tr>
-            <td>
-              <img src={logo} alt="" srcset="" width={250} />
-            </td>
-            <td colSpan={4} className="text-end  text-dark rounded">
-              <div className="container-fluid text-end">
-                <h3>
-                  <b> قسم الحسابات</b> -<b> استلام سلفه</b>
-                </h3>
-              </div>
-            </td>
-            {/* <td
+      <div className="container-fluid" style={{ overflowX: "auto" }}>
+        <table
+          id="mytable"
+          ref={tableRef}
+          className="table p-2 text-center mt-4"
+        >
+          <thead className="mt-4">
+            <tr>
+              <td>
+                <img src={logo} alt="" srcset="" width={250} />
+              </td>
+              <td colSpan={4} className="text-end  text-dark rounded">
+                <div className="container-fluid text-end">
+                  <h3>
+                    <b> قسم الحسابات</b> -<b> استلام سلفه</b>
+                  </h3>
+                </div>
+              </td>
+              {/* <td
               style={{
                 fontSize: "16px",
                 verticalAlign: "center",
@@ -114,106 +119,108 @@ function DepositDetailsPage() {
               {" "}
               {formatDate(new Date().now)}{" "}
             </td> */}
-          </tr>
-        </thead>
-        <tbody style={{ borderStyle: "" }}>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              <h4> {location.state.company_name} </h4>
-            </td>
-            <td className="text-end">
-              <h4>
-                <b> اسم المشروع</b>{" "}
-              </h4>
-            </td>
-          </tr>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              <h4> {location.state.invoice_id} </h4>
-            </td>
-            <td className="text-end">
-              {" "}
-              <h4>
+            </tr>
+          </thead>
+          <tbody style={{ borderStyle: "" }}>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
+                <h4> {location.state.company_name} </h4>
+              </td>
+              <td className="text-end">
+                <h4>
+                  <b> اسم المشروع</b>{" "}
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
+                <h4> {location.state.invoice_id} </h4>
+              </td>
+              <td className="text-end">
                 {" "}
-                <b> رقم السند</b>{" "}
-              </h4>
-            </td>
-          </tr>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              {" "}
-              <h4> {location.state.received_from} </h4>
-            </td>
-            <td className="text-end">
-              {" "}
-              <h4>
+                <h4>
+                  {" "}
+                  <b> رقم السند</b>{" "}
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
                 {" "}
-                {/* <b> : نوع الحساب</b>{" "} */}
-                <b> : استلمت من السيد</b>{" "}
-              </h4>
-            </td>
-          </tr>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              {" "}
-              <h4> {location.state.created_at} </h4>
-            </td>
-            <td className="text-end">
-              {" "}
-              <h4>
+                <h4> {location.state.received_from} </h4>
+              </td>
+              <td className="text-end">
                 {" "}
-                <b> : التاريخ</b>{" "}
-              </h4>
-            </td>
-          </tr>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              {" "}
-              <h4> {location.state.price_in_dinar} </h4>
-            </td>
-            <td className="text-end">
-              {" "}
-              <h4>
+                <h4>
+                  {" "}
+                  {/* <b> : نوع الحساب</b>{" "} */}
+                  <b> : استلمت من السيد</b>{" "}
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
                 {" "}
-                <b> : مبلغ الدينار</b>{" "}
-              </h4>
-            </td>
-          </tr>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              {" "}
-              <h4> {location.state.price_in_dollar} </h4>
-            </td>
-            <td className="text-end">
-              {" "}
-              <h4>
+                <h4> {location.state.created_at} </h4>
+              </td>
+              <td className="text-end">
                 {" "}
-                <b> : مبلغ الدولار</b>{" "}
-              </h4>
-            </td>
-          </tr>
-          <tr>
-            <td></td> <td></td> <td></td>{" "}
-            <td className="text-end">
-              {" "}
-              <h4> {location.state.description} </h4>
-            </td>
-            <td className="text-end">
-              {" "}
-              <h4>
+                <h4>
+                  {" "}
+                  <b> : التاريخ</b>{" "}
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
                 {" "}
-                <b> : التفاصيل</b>{" "}
-              </h4>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <h4> {location.state.price_in_dinar} </h4>
+              </td>
+              <td className="text-end">
+                {" "}
+                <h4>
+                  {" "}
+                  <b> : مبلغ الدينار</b>{" "}
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
+                {" "}
+                <h4> {location.state.price_in_dollar} </h4>
+              </td>
+              <td className="text-end">
+                {" "}
+                <h4>
+                  {" "}
+                  <b> : مبلغ الدولار</b>{" "}
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td></td> <td></td> <td></td>{" "}
+              <td className="text-end">
+                {" "}
+                <h4> {location.state.description} </h4>
+              </td>
+              <td className="text-end">
+                {" "}
+                <h4>
+                  {" "}
+                  <b> : التفاصيل</b>{" "}
+                </h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <footer className="footer">
         <div className="container text-center">
           <p>

@@ -39,12 +39,11 @@ function App() {
             <Route
               path="/"
               element={
-                <InvoiceDetialsPage />
-                // localStorage.getItem("token") === undefined ? (
-                //   <LoginPage />
-                // ) : (
-                //   <ContainersPage />
-                // )
+                localStorage.getItem("token") === undefined ? (
+                  <LoginPage />
+                ) : (
+                  <ContainersPage />
+                )
               }
             />
 

@@ -93,89 +93,91 @@ function AddInvoicePage() {
       <div className="container text-center" style={{ fontSize: "24px" }}>
         صفحة اضافة فاتورة
       </div>
-      <div className="container-fluid text-center">
-        <div className="container text-center mt-2 mb-2">
-          <p style={{ fontSize: "20px" }}>عنوان الفاتورة</p>
-          <input
-            class="form-control"
-            type="text"
-            dir="rtl"
-            value={invoiceTitle}
-            onChange={(e) => setInvoiceTitle(e.target.value)}
-          />
-        </div>
-        <table className="table text-center">
-          <thead>
-            <tr>
-              <th>Action</th>
-              <th>Total</th>
-              <th>Count</th>
-              <th>Price</th>
+      <div className="container text-center  mt-2 mb-2">
+        <p style={{ fontSize: "20px" }}>عنوان الفاتورة</p>
+        <input
+          className="form-control"
+          type="text"
+          dir="rtl"
+          value={invoiceTitle}
+          onChange={(e) => setInvoiceTitle(e.target.value)}
+        />
+      </div>
+      <div className="container-fluid" style={{ overflowX: "auto" }}>
+        <div className="container-fluid text-center">
+          <table className="table text-center">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Total</th>
+                <th>Count</th>
+                <th>Price</th>
 
-              <th>Title</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
-                <td>
-                  <button
-                    className="btn btn-light text-danger"
-                    onClick={() => deleteRow(index)}
-                  >
-                    Delete
-                  </button>
-                </td>
-                <td>
-                  <div className="container">{row.total}</div>
-                </td>
-                <td>
-                  <input
-                    dir="rtl"
-                    type="number"
-                    value={row.count}
-                    onChange={(e) =>
-                      handleChange(index, "count", e.target.value)
-                    }
-                  />
-                </td>
-                <td>
-                  <input
-                    dir="rtl"
-                    type="number"
-                    value={row.price}
-                    onChange={(e) =>
-                      handleChange(index, "price", e.target.value)
-                    }
-                  />
-                </td>
-
-                <td>
-                  <input
-                    type="text"
-                    dir="rtl"
-                    value={row.title}
-                    onChange={(e) =>
-                      handleChange(index, "title", e.target.value)
-                    }
-                  />
-                </td>
+                <th>Title</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="container text-center">
-          <button className="btn btn-success" onClick={addRow}>
-            اضافة حقل
-          </button>
-        </div>
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <tr key={index}>
+                  <td>
+                    <button
+                      className="btn btn-light text-danger"
+                      onClick={() => deleteRow(index)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td>
+                    <div className="container">{row.total}</div>
+                  </td>
+                  <td>
+                    <input
+                      dir="rtl"
+                      type="number"
+                      value={row.count}
+                      onChange={(e) =>
+                        handleChange(index, "count", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      dir="rtl"
+                      type="number"
+                      value={row.price}
+                      onChange={(e) =>
+                        handleChange(index, "price", e.target.value)
+                      }
+                    />
+                  </td>
 
-        <hr />
-        <div className="container text-center">
-          <button className="btn btn-success" onClick={addInvoice}>
-            حفظ الفاتورة
-          </button>
+                  <td>
+                    <input
+                      type="text"
+                      dir="rtl"
+                      value={row.title}
+                      onChange={(e) =>
+                        handleChange(index, "title", e.target.value)
+                      }
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
+      <div className="container text-center">
+        <button className="btn btn-success" onClick={addRow}>
+          اضافة حقل
+        </button>
+      </div>
+
+      <hr />
+      <div className="container text-center">
+        <button className="btn btn-success" onClick={addInvoice}>
+          حفظ الفاتورة
+        </button>
       </div>
     </>
   );

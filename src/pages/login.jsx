@@ -12,6 +12,9 @@ function Login() {
 
   async function checkIfUsernameAndPasswordIsCorrect() {
     setLoading(true);
+
+    let checkUserLoggedIn = false;
+
     await fetch(SYSTEM_URL + "login/", {
       method: "POST",
       headers: {
@@ -23,20 +26,27 @@ function Login() {
         password: password,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.detail) {
-          alert(data.detail);
-          navigate("/login", { replace: true });
-          return;
+      .then((response) => {
+        if (response.status === 401) {
+          alert("username or password is incorrect");
         }
 
+        return response.json();
+      })
+      .then((data) => {
+        if (
+          data.detail === "No active account found with the given credentials"
+        ) {
+          return;
+        }
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("user_id", data.user.id);
         localStorage.setItem("email", data.user.email);
         localStorage.setItem("is_superuser", data.user.is_superuser);
         localStorage.setItem("user_type", data.user.user_type.title);
+        navigate("/containers", { replace: true });
+        checkUserLoggedIn = true;
       })
       .catch((error) => {
         alert(error);
@@ -45,37 +55,50 @@ function Login() {
         setLoading(false);
       });
 
-    if (localStorage.getItem("user_type") === "supervisor") {
-      await fetch(
-        SYSTEM_URL + "company_supervisor/" + localStorage.getItem("user_id"),
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.detail) {
-            alert(data.detail);
-            return;
+    if (checkUserLoggedIn) {
+      if (localStorage.getItem("user_type") === "supervisor") {
+        await fetch(
+          SYSTEM_URL + "company_supervisor/" + localStorage.getItem("user_id"),
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
-          console.log(data);
+        )
+          .then((response) => {
+            console.log(response.status);
+            if (response.status === 401) {
+              alert("username or password is incorrect");
+              return;
+            }
+            if (response.status === 200) {
+              return response.json();
+            }
+          })
+          .then((data) => {
+            if (data.detail) {
+              console.log(data);
 
-          localStorage.setItem("company_id", data[0].id);
-          localStorage.setItem("company_name", data[0].title);
-        })
-        .catch((error) => {
-          alert(error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+              alert(data.detail);
+              return;
+            }
+
+            navigate("/containers", { replace: true });
+
+            localStorage.setItem("company_id", data[0].id);
+            localStorage.setItem("company_name", data[0].title);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     }
-
-    navigate("/withdraws", { replace: true });
   }
 
   const handleUsername = (event) => {

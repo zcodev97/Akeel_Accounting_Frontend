@@ -282,18 +282,20 @@ function WithdrawsPage() {
         </table>
       </div>
 
-      <BootstrapTable
-        className="text-center"
-        hover={true}
-        bordered={true}
-        bootstrap4
-        keyField="id"
-        columns={withdrawsColumns}
-        data={withdraws}
-        pagination={pagination}
-        rowEvents={rowEvents}
-        filter={filterFactory()}
-      />
+      <div className="container-fluid" style={{ overflowX: "auto" }}>
+        <BootstrapTable
+          className="text-center"
+          hover={true}
+          bordered={true}
+          bootstrap4
+          keyField="id"
+          columns={withdrawsColumns}
+          data={withdraws}
+          pagination={pagination}
+          rowEvents={rowEvents}
+          filter={filterFactory()}
+        />
+      </div>
     </>
   );
 }

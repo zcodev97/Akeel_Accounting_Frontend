@@ -21,7 +21,7 @@ function InvoiceDetailsPage() {
   const [totalDollar, setTotalDollar] = useState(0);
 
   var columns = [];
-  console.log(location.state.description);
+
   let x = null;
   try {
     x = JSON.parse(location.state.description);

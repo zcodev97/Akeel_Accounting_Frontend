@@ -89,15 +89,17 @@ function WorkerCalcDetailsPage() {
           {loading ? (
             "..."
           ) : (
-            <BootstrapTable
-              className="text-center"
-              hover={true}
-              bordered={true}
-              bootstrap4
-              keyField="id"
-              columns={columns ?? []}
-              data={JSON.parse(location.state.description)}
-            />
+            <div className="container-fluid" style={{ overflowX: "auto" }}>
+              <BootstrapTable
+                className="text-center"
+                hover={true}
+                bordered={true}
+                bootstrap4
+                keyField="id"
+                columns={columns ?? []}
+                data={JSON.parse(location.state.description)}
+              />
+            </div>
           )}
         </div>
       )}
