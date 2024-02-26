@@ -18,66 +18,78 @@ function DepositDetailsPage() {
   const navigate = useNavigate();
   const tableRef = useRef(null);
 
-  async function exportToPDF() {
-    const pdf = new jsPDF("landscape");
+  // async function exportToPDF() {
+  //   const pdf = new jsPDF("landscape");
 
-    const input = tableRef.current;
-    html2canvas(input, { scale: 3.0 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpeg", 2.0); // JPEG format with quality 0.75
+  //   const input = tableRef.current;
+  //   html2canvas(input, { scale: 3.0 }).then((canvas) => {
+  //     const imgData = canvas.toDataURL("image/jpeg", 2.0); // JPEG format with quality 0.75
 
-      const pdf = new jsPDF({
-        // orientation: "landscape", // Set orientation to landscape
-        unit: "mm", // Use millimeters as the unit for dimensions
-        format: "a4", // Use A4 size paper
-      });
+  //     const pdf = new jsPDF({
+  //       // orientation: "landscape", // Set orientation to landscape
+  //       unit: "mm", // Use millimeters as the unit for dimensions
+  //       format: "a4", // Use A4 size paper
+  //     });
 
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  //     const imgProps = pdf.getImageProperties(imgData);
+  //     const pdfWidth = pdf.internal.pageSize.getWidth();
+  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      // Define margin values
-      const marginLeft = 10; // Left margin in mm
-      const marginRight = 10; // Right margin in mm
-      const marginTop = 10; // Top margin in mm
-      const marginBottom = 10; // Bottom margin in mm
+  //     // Define margin values
+  //     const marginLeft = 10; // Left margin in mm
+  //     const marginRight = 10; // Right margin in mm
+  //     const marginTop = 10; // Top margin in mm
+  //     const marginBottom = 10; // Bottom margin in mm
 
-      // Calculate the adjusted width and height with margins
-      const adjustedWidth = pdfWidth - marginLeft - marginRight;
-      const adjustedHeight = pdfHeight - marginTop - marginBottom;
+  //     // Calculate the adjusted width and height with margins
+  //     const adjustedWidth = pdfWidth - marginLeft - marginRight;
+  //     const adjustedHeight = pdfHeight - marginTop - marginBottom;
 
-      // Calculate the x and y positions to center the adjusted table
-      const xPosition =
-        marginLeft + (pdf.internal.pageSize.getWidth() - pdfWidth) / 2;
-      const yPosition =
-        marginTop + (pdf.internal.pageSize.getHeight() - pdfHeight) / 8;
+  //     // Calculate the x and y positions to center the adjusted table
+  //     const xPosition =
+  //       marginLeft + (pdf.internal.pageSize.getWidth() - pdfWidth) / 2;
+  //     const yPosition =
+  //       marginTop + (pdf.internal.pageSize.getHeight() - pdfHeight) / 8;
 
-      pdf.addImage(
-        imgData,
-        "PNG",
-        xPosition,
-        yPosition,
-        adjustedWidth,
-        adjustedHeight
-      );
-      pdf.save(
-        `سند ايداع ${location.state.company_name} - ${location.state.created_at} - ${location.state.received_from}.pdf`
-      );
+  //     pdf.addImage(
+  //       imgData,
+  //       "PNG",
+  //       xPosition,
+  //       yPosition,
+  //       adjustedWidth,
+  //       adjustedHeight
+  //     );
+  //     pdf.save(
+  //       `سند ايداع ${location.state.company_name} - ${location.state.created_at} - ${location.state.received_from}.pdf`
+  //     );
+  //   });
+  // }
+
+  const exportToPDF = () => {
+    // Save the current document title
+    const originalTitle = document.title;
+
+    // Set the document title to the custom title
+    document.title = `ايداع ${location.state.company_name} ${location.state.created_at} .pdf`;
+    window.print();
+
+    window.addEventListener("afterprint", () => {
+      document.title = originalTitle;
     });
-  }
+  };
 
   return (
     <>
       <NavBar />
 
-      <hr />
-
-      <div className="container text-center">
+      <div className="container text-center" id="no-print">
+        <hr />
         <div className="btn btn-warning p-2" onClick={exportToPDF}>
           {" "}
           ⬇️ تحميل
         </div>
+        <hr />
       </div>
-      <hr />
 
       <table id="mytable" ref={tableRef} className="table p-2 text-center mt-4">
         <thead className="mt-4">
@@ -200,39 +212,18 @@ function DepositDetailsPage() {
               </h4>
             </td>
           </tr>
-          <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{" "}
-          <br /> <br /> <br /> <br /> <br /> <br /> <br />
-          <br /> <br /> <br />
-          <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{" "}
-          <br /> <br /> <br /> <br /> <br /> <br /> <br />
-          <br /> <br /> <br />
-          <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{" "}
-          <tr>
-            <td></td> <td></td>{" "}
-            <td className="text-end">
-              {" "}
-              <h4> التدقيق </h4>
-            </td>
-            <td></td>
-            <td className="text-start">
-              {" "}
-              <h4> الحسابات </h4>
-            </td>
-          </tr>
-          <tr colSpan={2} className="text-center">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              www.nurarch.com | IQ : +964 770 968 11 35 |TR : +90 539 77 290 77
-              | info@nurarch.com 2 nd Floor, Aamal Bld , Amerat St.11 , Mansour
-              , Baghdad, Iraq Yakuplu Mh , Gocman sk , No:1 , D:18 , Beylikduzu
-              , Istanbul , Turkey
-            </td>
-          </tr>
-          <br /> <br /> <br />
         </tbody>
       </table>
+      <footer className="footer">
+        <div className="container text-center">
+          <p>
+            www.nurarch.com | IQ : +964 770 968 11 35 |TR : +90 539 77 290 77 |
+            info@nurarch.com 2 nd Floor, Aamal Bld , Amerat St.11 , Mansour ,
+            Baghdad, Iraq Yakuplu Mh , Gocman sk , No:1 , D:18 , Beylikduzu ,
+            Istanbul , Turkey
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

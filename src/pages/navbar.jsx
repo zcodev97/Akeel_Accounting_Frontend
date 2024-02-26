@@ -38,7 +38,7 @@ function NavBar() {
       >
         <div className="container-fluid d-flex justify-content-between">
           {/* Start of the main navbar content */}
-          <div>
+          <div className="contaier text-end">
             <Link className="navbar-brand text-primary p-2" to="/containers">
               <img src={logo} alt="" srcset="" width={50} />
             </Link>
@@ -101,13 +101,6 @@ function NavBar() {
                   <h5> ذرعات الخلفات</h5>
                 </Link>
               </li>
-            </ul>
-          </div>
-          {/* End of the main navbar content */}
-
-          {/* Start of user/logout buttons */}
-          <div>
-            <ul className="navbar-nav">
               <li className="nav-item btn m-1 p-2 border border-1 rounded">
                 👤<b> {localStorage.getItem("username")}</b>
               </li>
@@ -122,6 +115,10 @@ function NavBar() {
               </li>
             </ul>
           </div>
+          {/* End of the main navbar content */}
+
+          {/* Start of user/logout buttons */}
+
           {/* End of user/logout buttons */}
         </div>
       </nav>
