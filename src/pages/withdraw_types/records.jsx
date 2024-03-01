@@ -49,7 +49,7 @@ function PersonTypePage() {
 
   const pagination = paginationFactory({
     page: 1,
-    sizePerPage: 15,
+    sizePerPage: 5,
     lastPageText: ">>",
     firstPageText: "<<",
     nextPageText: ">",
@@ -75,6 +75,7 @@ function PersonTypePage() {
               onClick={() => {
                 navigate("/add_withdraw_type");
               }}
+              style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
             >
               <h4>أضافة </h4>
             </div>

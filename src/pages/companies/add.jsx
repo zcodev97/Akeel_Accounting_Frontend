@@ -99,7 +99,7 @@ function AddCompanyPage() {
       body: JSON.stringify({
         title: name,
         container: selectedContainer.value,
-        company_type: "eebf995c-c4e4-446b-89e2-790eeea213e5",
+        company_type: "4e77e7e6-7a0c-478a-a672-319cb1635383",
         total_dinar: 0,
         total_dollar: 0,
         created_by: localStorage.getItem("user_id"),

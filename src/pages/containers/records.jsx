@@ -98,7 +98,7 @@ function ContainersPage() {
 
   const pagination = paginationFactory({
     page: 1,
-    sizePerPage: 15,
+    sizePerPage: 5,
     lastPageText: ">>",
     firstPageText: "<<",
     nextPageText: ">",
@@ -117,7 +117,7 @@ function ContainersPage() {
           <div className="container text-center ">
             <h1> القاصات</h1>
           </div>
-          <div className="container text-center">
+          <div className="container text-center" style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}>
             <div
               className="btn btn-dark text-light p-2 mt-2 mb-2"
               onClick={() => {
@@ -128,7 +128,7 @@ function ContainersPage() {
             </div>
           </div>
 
-          <div className="container-fluid" style={{ overflowX: "auto" }}>
+          <div className="container-fluid" style={{  overflowX: "auto" }}>
             <BootstrapTable
               className="text-center"
               hover={true}

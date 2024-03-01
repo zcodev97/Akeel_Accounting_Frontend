@@ -240,6 +240,7 @@ function WithdrawsPage() {
           onClick={() => {
             navigate("/add_withdraw");
           }}
+          style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
         >
           <b> اضافة</b>
         </div>

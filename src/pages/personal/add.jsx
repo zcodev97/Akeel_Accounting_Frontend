@@ -66,7 +66,7 @@ function AddPersonalPage() {
       body: JSON.stringify({
         title: name,
         container: selectedContainer.value,
-        company_type: "5e5812d5-e9f6-49bc-941f-475e4d8c1ce9",
+        company_type: "c674ded8-5eff-4287-be01-539c7280f70a",
         total_dinar: 0,
         total_dollar: 0,
         created_by: localStorage.getItem("user_id"),

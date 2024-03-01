@@ -115,7 +115,6 @@ function AddDepositPage() {
             description: description,
             created_by: localStorage.getItem("user_id"),
             created_at: recordDate,
-            // document: key[1],
           }),
         })
           .then((response) => {
@@ -321,16 +320,7 @@ function AddDepositPage() {
               </td>
             </tr>
             {/*  */}
-            <tr>
-              <td>
-                <div>
-                  <input type="file" onChange={handleFileChange} />
-                </div>
-              </td>
-              <td>
-                <b> الملف </b>
-              </td>
-            </tr>
+
           </tbody>
         </table>
         <div className="row">

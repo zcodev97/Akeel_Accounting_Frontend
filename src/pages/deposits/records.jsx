@@ -236,6 +236,7 @@ function DepositsPage() {
           onClick={() => {
             navigate("/add_deposit");
           }}
+          style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
         >
           <b> اضافة</b>
         </div>
