@@ -141,15 +141,15 @@ function AddPersonalWithdrawPage() {
           company_name: selectedCompany.value,
           price_in_dinar: totalDinar,
           price_in_dollar: totalDollar,
-          withdraw_type: 'f4581d7c-c249-4520-b6a9-91e71ca537a3',
+          withdraw_type: 'c674ded8-5eff-4287-be01-539c7280f70a',
           description: description,
-          out_to: "",
+          out_to: selectedCompany.label,
           created_by: localStorage.getItem("user_id"),
           created_at: recordDate,
         }),
       })
         .then((response) => {
-          console.log(response.content);
+    
           if (response.status === 200) {
             return response.json();
           }
@@ -157,8 +157,8 @@ function AddPersonalWithdrawPage() {
         })
         .then((data) => {
           // console.log(data);
-          alert("تم اضافة سجل ");
-          navigate("/withdraws", { replace: true });
+          // alert("تم اضافة سجل ");
+          navigate("/personal_withdraws", { replace: true });
         })
         .catch((error) => {
           // console.log(error);

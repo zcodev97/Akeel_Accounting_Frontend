@@ -76,8 +76,10 @@ function AddDepositPage() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        response.forEach((i) => {
+        let filtered_data = response.filter(
+          (i) => i.company_type?.title !== "شخصي"
+        );
+        filtered_data.forEach((i) => {
           dropdownMenuCompaniesTemp.push({
             label: i.title,
             value: i.id,

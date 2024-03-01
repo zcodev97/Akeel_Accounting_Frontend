@@ -78,8 +78,12 @@ function AddWithdrawPage() {
     })
       .then((response) => response.json())
       .then((data) => {
+
+        let filtered_data = data.filter(
+          (i) => i?.title !== "شخصي"
+        );
         // console.log(data);
-        data.forEach((source) => {
+        filtered_data.forEach((source) => {
           tempWithdrawTypesDropDown.push({
             label: source.title,
             value: source.id,

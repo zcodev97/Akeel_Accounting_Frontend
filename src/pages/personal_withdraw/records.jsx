@@ -57,18 +57,24 @@ function PersonalWithdrawsPage() {
     })
       .then((response) => response.json())
       .then((data) => {
+       
+        let filtered_data = data.filter(
+          (i) => i.withdraw_type?.title === "شخصي"
+        );
+
+
         setTotalWithdrawsDinar(
-          data.reduce((accumulator, currentItem) => {
+          filtered_data.reduce((accumulator, currentItem) => {
             return accumulator + currentItem.price_in_dinar;
           }, 0)
         );
 
         setTotalWithdrawsDollar(
-          data.reduce((accumulator, currentItem) => {
+          filtered_data.reduce((accumulator, currentItem) => {
             return accumulator + currentItem.price_in_dollar;
           }, 0)
         );
-        data.map((i) => {
+        filtered_data.map((i) => {
           i.price_in_dinar = i.price_in_dinar.toLocaleString("en-US", {
             style: "currency",
             currency: "IQD",
@@ -87,7 +93,7 @@ function PersonalWithdrawsPage() {
           i.company_name = i.company_name.title;
           i.container = i.container.name;
         });
-        setWithdraws(data);
+        setWithdraws(filtered_data);
       })
       .catch((error) => {
         alert(error);
@@ -239,7 +245,7 @@ function PersonalWithdrawsPage() {
         <div
           className="btn btn-success m-2"
           onClick={() => {
-            navigate("/withdraw_report");
+            navigate("/personal_withdraw_report");
           }}
         >
           <b> تقرير </b>

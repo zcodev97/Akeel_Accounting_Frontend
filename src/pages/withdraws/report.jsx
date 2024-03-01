@@ -76,20 +76,23 @@ function WithDrawReportPage() {
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        let filtered_data = data.filter(
+          (i) => i.company_type?.title !== "شخصي"
+        );
+
 
         setTotalDinar(
-          data.reduce((accumulator, currentItem) => {
+          filtered_data.reduce((accumulator, currentItem) => {
             return accumulator + currentItem.price_in_dinar;
           }, 0)
         );
 
         setTotalDollar(
-          data.reduce((accumulator, currentItem) => {
+          filtered_data.reduce((accumulator, currentItem) => {
             return accumulator + currentItem.price_in_dollar;
           }, 0)
         );
-        data.map((i) => {
+        filtered_data.map((i) => {
           i.price_in_dinar = i.price_in_dinar.toLocaleString("en-US", {
             style: "currency",
             currency: "IQD",
@@ -109,7 +112,7 @@ function WithDrawReportPage() {
           i.container = i.container.name;
           i.withdraw_type = i.withdraw_type.title;
         });
-        setData(data);
+        setData(filtered_data);
       })
       .catch((error) => {
         alert(error);
