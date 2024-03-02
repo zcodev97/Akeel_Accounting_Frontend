@@ -39,7 +39,8 @@ function App() {
             <Route
               path="/"
               element={
-                localStorage.getItem("token") === null ? (
+                localStorage.getItem("token") === null ||
+                localStorage.getItem("token") === undefined ? (
                   <LoginPage />
                 ) : (
                   <ContainersPage />
