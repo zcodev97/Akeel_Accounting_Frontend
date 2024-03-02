@@ -83,7 +83,7 @@ function AddInvoicePage() {
   };
 
   const getDataAsJSON = () => {
-    console.log(rows);
+    // console.log(rows);
     return JSON.stringify(rows);
   };
 
@@ -175,7 +175,22 @@ function AddInvoicePage() {
 
       <hr />
       <div className="container text-center">
-        <button className="btn btn-success" onClick={addInvoice}>
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            if (invoiceTitle.length === 0) {
+              alert("الرجاء ادخال عنوان الفاتورة !");
+              return;
+            }
+            console.log(rows);
+            if (rows.filter((i) => i.title.length > 0).length === 0) {
+              alert("الرجاء ادخال حقل للفاتورة !");
+              return;
+            }
+
+            addInvoice();
+          }}
+        >
           حفظ الفاتورة
         </button>
       </div>

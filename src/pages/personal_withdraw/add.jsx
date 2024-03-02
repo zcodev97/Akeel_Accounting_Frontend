@@ -141,7 +141,7 @@ function AddPersonalWithdrawPage() {
           company_name: selectedCompany.value,
           price_in_dinar: totalDinar,
           price_in_dollar: totalDollar,
-          withdraw_type: 'f4581d7c-c249-4520-b6a9-91e71ca537a3',
+          withdraw_type: "f4581d7c-c249-4520-b6a9-91e71ca537a3",
           description: description,
           out_to: selectedCompany.label,
           created_by: localStorage.getItem("user_id"),
@@ -149,7 +149,6 @@ function AddPersonalWithdrawPage() {
         }),
       })
         .then((response) => {
-    
           if (response.status === 200) {
             return response.json();
           }
@@ -201,7 +200,6 @@ function AddPersonalWithdrawPage() {
           </thead>
 
           <tbody>
-            
             {/*  */}
             <tr>
               <td>
@@ -318,7 +316,6 @@ function AddPersonalWithdrawPage() {
               </td>
             </tr>
             {/*  */}
- 
 
             <tr>
               <td>
@@ -350,7 +347,38 @@ function AddPersonalWithdrawPage() {
             </div>
           </div>
           <div className="col-md-6">
-            <div className="btn btn-success p-2 mt-2 mb-2" onClick={addRecord}>
+            <div
+              className="btn btn-success p-2 mt-2 mb-2"
+              onClick={() => {
+                if (totalDinar.length === 0) {
+                  alert("الرجاء ادخال مبلغ الدينار !");
+                  return;
+                }
+                if (totalDollar.length === 0) {
+                  alert("الرجاء ادخال مبلغ الدولار !");
+                  return;
+                }
+
+                if (totalDollar.length === 0) {
+                  alert("الرجاء ادخال مبلغ الدولار !");
+                  return;
+                }
+                if (Object.entries(selectedCompany).length === 0) {
+                  alert("الرجاء ادخال الى !");
+                  return;
+                }
+                if (Object.entries(selectedContainer).length === 0) {
+                  alert("أسم القاصة !");
+                  return;
+                }
+
+                if (description.length === 0) {
+                  alert("الرجاء ادخال التفاصيل !");
+                  return;
+                }
+                addRecord();
+              }}
+            >
               <h4> حفظ القيد</h4>
             </div>
           </div>

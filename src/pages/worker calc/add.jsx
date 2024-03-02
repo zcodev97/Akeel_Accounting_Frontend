@@ -172,7 +172,22 @@ function AddWorkerCalcPage() {
 
       <hr />
       <div className="container text-center">
-        <button className="btn btn-success" onClick={AddWorkerCalc}>
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            if (invoiceTitle.length === 0) {
+              alert("الرجاء ادخال عنوان الفاتورة !");
+              return;
+            }
+            console.log(rows);
+            if (rows.filter((i) => i.title.length > 0).length === 0) {
+              alert("الرجاء ادخال حقل للفاتورة !");
+              return;
+            }
+
+            AddWorkerCalc();
+          }}
+        >
           حفظ الفاتورة
         </button>
       </div>
