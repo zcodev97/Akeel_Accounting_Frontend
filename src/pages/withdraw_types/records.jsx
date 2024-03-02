@@ -26,7 +26,10 @@ function PersonTypePage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setData(data);
+        let filtered_data = data.filter(
+          (i) => i?.title !== "شخصي"
+        );
+        setData(filtered_data);
       })
       .catch((error) => {
         alert(error);

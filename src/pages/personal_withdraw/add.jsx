@@ -7,7 +7,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
-function AddWithdrawPage() {
+function AddPersonalWithdrawPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -78,12 +78,8 @@ function AddWithdrawPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-
-        let filtered_data = data.filter(
-          (i) => i?.title !== "شخصي"
-        );
         // console.log(data);
-        filtered_data.forEach((source) => {
+        data.forEach((source) => {
           tempWithdrawTypesDropDown.push({
             label: source.title,
             value: source.id,
@@ -110,7 +106,7 @@ function AddWithdrawPage() {
       .then((response) => response.json())
       .then((response) => {
         let filtered_data = response.filter(
-          (i) => i.company_type?.title !== "شخصي"
+          (i) => i.company_type?.title === "شخصي"
         );
         // console.log(response);
         filtered_data.forEach((i) => {
@@ -145,15 +141,15 @@ function AddWithdrawPage() {
           company_name: selectedCompany.value,
           price_in_dinar: totalDinar,
           price_in_dollar: totalDollar,
-          withdraw_type: selectedWithDrawType,
+          withdraw_type: 'f4581d7c-c249-4520-b6a9-91e71ca537a3',
           description: description,
-          out_to: outTo,
+          out_to: selectedCompany.label,
           created_by: localStorage.getItem("user_id"),
           created_at: recordDate,
         }),
       })
         .then((response) => {
-          console.log(response.content);
+    
           if (response.status === 200) {
             return response.json();
           }
@@ -161,8 +157,8 @@ function AddWithdrawPage() {
         })
         .then((data) => {
           // console.log(data);
-          alert("تم اضافة سجل ");
-          navigate("/withdraws", { replace: true });
+          // alert("تم اضافة سجل ");
+          navigate("/personal_withdraws", { replace: true });
         })
         .catch((error) => {
           // console.log(error);
@@ -205,23 +201,7 @@ function AddWithdrawPage() {
           </thead>
 
           <tbody>
-            {/*  */}
-            <tr>
-              <td>
-                {/* drop down menu to select date */}
-                <Select
-                  className="text-center"
-                  defaultValue={selectedWithDrawType}
-                  options={withdrawTypesDropDown}
-                  onChange={(opt) => setSelectedWithdrawType(opt.value)}
-                  placeholder={"..."}
-                />
-              </td>
-              <td>
-                <b> نوع القيد </b>
-              </td>
-            </tr>
-            {/*  */}
+            
             {/*  */}
             <tr>
               <td>
@@ -315,7 +295,7 @@ function AddWithdrawPage() {
                 </div>
               </td>
               <td>
-                <b> المشروع </b>
+                <b> الى </b>
               </td>
             </tr>
             {/*  */}
@@ -338,25 +318,7 @@ function AddWithdrawPage() {
               </td>
             </tr>
             {/*  */}
-
-            {/*  */}
-            <tr>
-              <td>
-                <input
-                  onChange={(e) => {
-                    setOutTo(e.target.value);
-                  }}
-                  type="text"
-                  className="form-control text-center border border-dark"
-                  id="username"
-                  style={{ fontSize: "20px" }}
-                />
-              </td>
-              <td>
-                <b> الى </b>
-              </td>
-            </tr>
-            {/*  */}
+ 
 
             <tr>
               <td>
@@ -398,4 +360,4 @@ function AddWithdrawPage() {
   );
 }
 
-export default AddWithdrawPage;
+export default AddPersonalWithdrawPage;

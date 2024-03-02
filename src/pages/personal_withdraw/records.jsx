@@ -9,7 +9,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 
-function WithdrawsPage() {
+function PersonalWithdrawsPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ function WithdrawsPage() {
 
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
-      navigate("/withdraw_details", {
+      navigate("/personal_withdraw_details", {
         state: {
           invoice_id: row.invoice_id,
           container: row.container,
@@ -39,7 +39,6 @@ function WithdrawsPage() {
           price_in_dinar: row.price_in_dinar,
           price_in_dollar: row.price_in_dollar,
           description: row.description,
-          withdraw_type: row.withdraw_type,
           created_at: row.created_at,
           out_to: row.out_to,
         },
@@ -58,9 +57,9 @@ function WithdrawsPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-
+       
         let filtered_data = data.filter(
-          (i) => i.withdraw_type?.title !== "شخصي"
+          (i) => i.withdraw_type?.title === "شخصي"
         );
 
 
@@ -93,7 +92,6 @@ function WithdrawsPage() {
           i.created_at = formatDate(new Date(i.created_at));
           i.company_name = i.company_name.title;
           i.container = i.container.name;
-          i.withdraw_type = i.withdraw_type.title;
         });
         setWithdraws(filtered_data);
       })
@@ -146,7 +144,6 @@ function WithdrawsPage() {
           i.created_at = formatDate(new Date(i.created_at));
           i.company_name = i.company_name.title;
           i.container = i.container.name;
-          i.withdraw_type = i.withdraw_type.title;
         });
         setWithdraws(data);
       })
@@ -188,15 +185,10 @@ function WithdrawsPage() {
       sort: true,
       filter: textFilter(),
     },
-    {
-      dataField: "withdraw_type",
-      text: "نوع القيد",
-      sort: true,
-      filter: textFilter(),
-    },
+   
     {
       dataField: "company_name",
-      text: "اسم المشروع",
+      text: "عنوان الصرفية",
       sort: true,
       filter: textFilter(),
     },
@@ -238,13 +230,13 @@ function WithdrawsPage() {
       )}
       <hr />
       <div className="container text-center">
-        <h1 className="text-danger "> الصرفيات</h1>
+        <h1 className="text-danger "> صرفيات الشركة</h1>
       </div>
       <div className="container text-center">
         <div
           className="btn btn-primary m-2"
           onClick={() => {
-            navigate("/add_withdraw");
+            navigate("/add_personal_withdraw");
           }}
           style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
         >
@@ -253,7 +245,7 @@ function WithdrawsPage() {
         <div
           className="btn btn-success m-2"
           onClick={() => {
-            navigate("/withdraw_report");
+            navigate("/personal_withdraw_report");
           }}
         >
           <b> تقرير </b>
@@ -306,4 +298,4 @@ function WithdrawsPage() {
     </>
   );
 }
-export default WithdrawsPage;
+export default PersonalWithdrawsPage;

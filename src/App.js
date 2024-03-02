@@ -29,6 +29,10 @@ import BuildingCalcsPage from "./pages/building calc/records";
 import WorkerCalcDetailsPage from "./pages/worker calc/details";
 import AddWorkerCalcPage from "./pages/worker calc/add";
 import WorkerCalcsPage from "./pages/worker calc/records";
+import PersonalWithdrawsPage from "./pages/personal_withdraw/records";
+import PersonalWithDrawDetialsPage from "./pages/personal_withdraw/details";
+import AddPersonalWithdrawPage from "./pages/personal_withdraw/add";
+import PersonalWithDrawReportPage from "./pages/personal_withdraw/report";
 
 function App() {
   return (
@@ -60,6 +64,11 @@ function App() {
             <Route path="/add_personal" element={<AddPersonalPage />} />
             <Route path="/company_details" element={<CompanyDetailsPage />} />
             <Route path="/add_company" element={<AddCompanyPage />} />
+            <Route path="/personal_withdraws" element={<PersonalWithdrawsPage />} />
+            <Route path="/personal_withdraw_details" element={<PersonalWithDrawDetialsPage />} />
+            <Route path="/add_personal_withdraw" element={<AddPersonalWithdrawPage />} />
+            <Route path="/personal_withdraw_report" element={<PersonalWithDrawReportPage />} />
+
 
             <Route path="/withdraws" element={<WithdrawsPage />} />
             <Route path="/withdraw_details" element={<WithDrawDetialsPage />} />

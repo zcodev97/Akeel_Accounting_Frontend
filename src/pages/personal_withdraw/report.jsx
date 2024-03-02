@@ -17,7 +17,7 @@ import { SYSTEM_URL, formatDate } from "../../global";
 import html2canvas from "html2canvas";
 import { useLocation } from "react-router-dom";
 
-function WithDrawReportPage() {
+function PersonalWithDrawReportPage() {
   const navigate = useNavigate();
   const tableRef = useRef(null);
   const input = tableRef.current;
@@ -76,8 +76,10 @@ function WithDrawReportPage() {
     )
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data);
+
         let filtered_data = data.filter(
-          (i) => i.company_type?.title !== "شخصي"
+          (i) => i.company_type?.title === "شخصي"
         );
 
 
@@ -151,15 +153,10 @@ function WithDrawReportPage() {
       sort: true,
       filter: activeSearch ? textFilter() : null,
     },
-    {
-      dataField: "withdraw_type",
-      text: "نوع القيد",
-      sort: true,
-      filter: activeSearch ? textFilter() : null,
-    },
+ 
     {
       dataField: "company_name",
-      text: "اسم الشركة",
+      text: "عنوان الصرفية",
       sort: true,
       filter: activeSearch ? textFilter() : null,
     },
@@ -386,4 +383,4 @@ function WithDrawReportPage() {
   );
 }
 
-export default WithDrawReportPage;
+export default PersonalWithDrawReportPage;

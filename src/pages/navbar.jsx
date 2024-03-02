@@ -67,13 +67,19 @@ function NavBar() {
                 </Link>
               </li>
               <li className="nav-item rounded border-4 m-1">
+                <Link className={navLinkClassName} to="/personal_withdraws">
+                  <h5>صرفيات الشركة</h5>
+                </Link>
+              </li>
+              <li className="nav-item rounded border-4 m-1">
                 <Link className={navLinkClassName} to="/companies">
                   <h5>المشاريع</h5>
                 </Link>
               </li>
+             
               <li className="nav-item rounded border-4 m-1">
                 <Link className={navLinkClassName} to="/withdraws">
-                  <h5>الصرفيات</h5>
+                  <h5>صرفيات المشاريع</h5>
                 </Link>
               </li>
               <li className="nav-item rounded border-4 m-1">
