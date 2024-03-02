@@ -98,7 +98,10 @@ function InvoicesPage() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container-fluid p-4 text-end">
+        <div
+          className="container-fluid"
+          style={{ margin: "0px", padding: "0px" }}
+        >
           <div className="container text-center ">
             <h1> صفحة الفواتير</h1>
           </div>
@@ -109,7 +112,12 @@ function InvoicesPage() {
               onClick={() => {
                 navigate("/add_invoice");
               }}
-              style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
+              style={{
+                display:
+                  localStorage.getItem("user_type") === "view"
+                    ? "none"
+                    : "block",
+              }}
             >
               <h4>أضافة </h4>
             </div>
@@ -143,7 +151,10 @@ function InvoicesPage() {
               </tbody>
             </table>
           </div> */}
-          <div className="container-fluid" style={{ overflowX: "auto" }}>
+          <div
+            className="container-fluid"
+            style={{ overflowX: "auto", margin: "0px", padding: "0px" }}
+          >
             <BootstrapTable
               className="text-center"
               hover={true}

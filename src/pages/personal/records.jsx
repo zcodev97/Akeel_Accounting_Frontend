@@ -148,7 +148,10 @@ function PersonalCompaniesPage() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container-fluid p-4 text-end">
+        <div
+          className="container-fluid"
+          style={{ margin: "0px", padding: "0px" }}
+        >
           <div className="container text-center ">
             <h1> شخصي</h1>
           </div>
@@ -159,13 +162,18 @@ function PersonalCompaniesPage() {
               onClick={() => {
                 navigate("/add_personal");
               }}
-              style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
+              style={{
+                display:
+                  localStorage.getItem("user_type") === "view"
+                    ? "none"
+                    : "block",
+              }}
             >
               <h4>أضافة </h4>
             </div>
           </div>
 
-          <div className="container text-center">
+          <div className="container-fluid text-center">
             <table className="table table-strpied table-hover ">
               <tbody>
                 <tr>
@@ -194,7 +202,10 @@ function PersonalCompaniesPage() {
             </table>
           </div>
 
-          <div className="container-fluid" style={{ overflowX: "auto" }}>
+          <div
+            className="container-fluid"
+            style={{ overflowX: "auto", margin: "0px", padding: "0px" }}
+          >
             <BootstrapTable
               className="text-center"
               hover={true}

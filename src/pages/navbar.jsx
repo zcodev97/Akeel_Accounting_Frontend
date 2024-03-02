@@ -36,14 +36,27 @@ function NavBar() {
         className="navbar navbar-expand-sm navbar-dark  text-center rounded p-2"
         id="no-print"
       >
-        <div className="container-fluid d-flex justify-content-between">
+        <div
+          className="container-fluid"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "end",
+            margin: "0px",
+            padding: "0px",
+          }}
+        >
           {/* Start of the main navbar content */}
-          <div className="contaier text-end">
-            <Link className="navbar-brand text-primary p-2" to="/containers">
+          <div className="contaier-fluid">
+            <Link
+              className="navbar-brand text-primary p-2"
+              to="/containers"
+              style={{ alignItems: "start" }}
+            >
               <img src={logo} alt="" srcset="" width={50} />
             </Link>
             <button
-              className="navbar-toggler bg-dark"
+              className="navbar-toggler bg-dark text-end"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -76,7 +89,7 @@ function NavBar() {
                   <h5>المشاريع</h5>
                 </Link>
               </li>
-             
+
               <li className="nav-item rounded border-4 m-1">
                 <Link className={navLinkClassName} to="/withdraws">
                   <h5>صرفيات المشاريع</h5>

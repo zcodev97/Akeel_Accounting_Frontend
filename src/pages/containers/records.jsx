@@ -113,11 +113,20 @@ function ContainersPage() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container-fluid p-4 text-end">
+        <div
+          className="container-fluid"
+          style={{ margin: "0px", padding: "0px" }}
+        >
           <div className="container text-center ">
             <h1> القاصات</h1>
           </div>
-          <div className="container text-center" style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}>
+          <div
+            className="container text-center"
+            style={{
+              display:
+                localStorage.getItem("user_type") === "view" ? "none" : "block",
+            }}
+          >
             <div
               className="btn btn-dark text-light p-2 mt-2 mb-2"
               onClick={() => {
@@ -128,20 +137,19 @@ function ContainersPage() {
             </div>
           </div>
 
-          <div className="container-fluid" style={{  overflowX: "auto" }}>
-            <BootstrapTable
-              className="text-center"
-              hover={true}
-              bordered={true}
-              bootstrap4
-              keyField="id"
-              columns={columns}
-              data={data}
-              pagination={pagination}
-              filter={filterFactory()}
-              rowEvents={rowEvents}
-            />
-          </div>
+          <BootstrapTable
+            className="text-center"
+            hover={true}
+            bordered={true}
+            bootstrap4
+            keyField="id"
+            columns={columns}
+            data={data}
+            pagination={pagination}
+            filter={filterFactory()}
+            rowEvents={rowEvents}
+            style={{ overflowX: "auto" }}
+          />
         </div>
       )}
     </>

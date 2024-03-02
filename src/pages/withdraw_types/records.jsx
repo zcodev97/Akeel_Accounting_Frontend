@@ -26,9 +26,7 @@ function PersonTypePage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        let filtered_data = data.filter(
-          (i) => i?.title !== "شخصي"
-        );
+        let filtered_data = data.filter((i) => i?.title !== "شخصي");
         setData(filtered_data);
       })
       .catch((error) => {
@@ -67,7 +65,7 @@ function PersonTypePage() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container-fluid p-4 text-end">
+        <div className="container-fluid">
           <div className="container text-center ">
             <h1> انواع القيود </h1>
           </div>
@@ -78,7 +76,12 @@ function PersonTypePage() {
               onClick={() => {
                 navigate("/add_withdraw_type");
               }}
-              style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
+              style={{
+                display:
+                  localStorage.getItem("user_type") === "view"
+                    ? "none"
+                    : "block",
+              }}
             >
               <h4>أضافة </h4>
             </div>
@@ -94,7 +97,6 @@ function PersonTypePage() {
             data={data}
             pagination={pagination}
             filter={filterFactory()}
-            // rowEvents={rowEvents}
           />
         </div>
       )}

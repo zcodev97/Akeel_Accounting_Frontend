@@ -98,7 +98,10 @@ function WorkerCalcsPage() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container-fluid p-4 text-end">
+        <div
+          className="container-fluid "
+          style={{ margin: "0px", padding: "0px" }}
+        >
           <div className="container text-center ">
             <h1> صفحة ذرعات الخلفات</h1>
           </div>
@@ -109,13 +112,21 @@ function WorkerCalcsPage() {
               onClick={() => {
                 navigate("/add_worker_calc");
               }}
-              style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
+              style={{
+                display:
+                  localStorage.getItem("user_type") === "view"
+                    ? "none"
+                    : "block",
+              }}
             >
               <h4>أضافة </h4>
             </div>
           </div>
 
-          <div className="container-fluid" style={{ overflowX: "auto" }}>
+          <div
+            className="container-fluid"
+            style={{ overflowX: "auto", margin: "0px", padding: "0px" }}
+          >
             <BootstrapTable
               className="text-center"
               hover={true}
