@@ -77,11 +77,9 @@ function PersonalWithDrawReportPage() {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
-
         let filtered_data = data.filter(
-          (i) => i.company_type?.title === "شخصي"
+          (i) => i.withdraw_type?.title === "شخصي"
         );
-
 
         setTotalDinar(
           filtered_data.reduce((accumulator, currentItem) => {
@@ -153,25 +151,25 @@ function PersonalWithDrawReportPage() {
       sort: true,
       filter: activeSearch ? textFilter() : null,
     },
- 
+
     {
       dataField: "company_name",
       text: "عنوان الصرفية",
       sort: true,
       filter: activeSearch ? textFilter() : null,
     },
-    {
-      dataField: "container",
-      text: "القاصة",
-      sort: true,
-      filter: activeSearch ? textFilter() : null,
-    },
     // {
-    //   dataField: "invoice_id",
-    //   text: "تسلسل السجل",
+    //   dataField: "container",
+    //   text: "القاصة",
     //   sort: true,
     //   filter: activeSearch ? textFilter() : null,
     // },
+    {
+      dataField: "invoice_id",
+      text: "تسلسل السجل",
+      sort: true,
+      filter: activeSearch ? textFilter() : null,
+    },
     {
       dataField: "rowNumber",
       text: "تسلسل",
@@ -211,99 +209,114 @@ function PersonalWithDrawReportPage() {
     <>
       <NavBar />
 
-      <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
-        <h3 className="text-center" id="test">
-          <b> تقرير الصرفيات </b>
-        </h3>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
+          <h3 className="text-center" id="test">
+            <b> تقرير الصرفيات للشركة</b>
+          </h3>
 
-        <div className="container text-end" id="no-print">
-          <btn
-            className="btn btn-primary text-light "
-            onClick={() => {
-              setActiveSearch(!activeSearch);
+          <div className="container text-center" id="no-print">
+            <btn
+              className="btn btn-primary text-light "
+              onClick={() => {
+                setActiveSearch(!activeSearch);
+              }}
+            >
+              <b> {activeSearch ? "اخفاء" : "تفعيل"} البحث</b>
+            </btn>
+          </div>
+
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <b> {activeSearch ? "اخفاء" : "تفعيل"} البحث</b>
-          </btn>
-        </div>
-
-        <div className="container    rounded p-4 mt-2 mb-2 ">
-          <table className="table">
-            <thead>
-              <tr>
-                <td>
-                  <div
-                    className="container btn border border-2  border-danger text-danger  text-center"
-                    onClick={exportToPDF}
-                    id="no-print"
-                  >
-                    <b> طباعة 📁 </b>
-                  </div>
-                </td>
-                <td>
-                  <div
-                    className="container btn btn-light border border-2 border-primary text-primary"
-                    onClick={loadWithdraws}
-                    id="no-print"
-                  >
-                    <b> تنفيذ </b>
-                  </div>
-                </td>
-                <td>
-                  <div className="container  text-end ">
-                    <DateTimePicker
-                      key={2}
-                      clearIcon={null}
-                      format={"y-MM-dd"}
-                      onChange={setEndFirstDate}
-                      value={endFirstDate}
-                    />
-                  </div>
-                </td>
-                <td>الى</td>
-                <td>
-                  <div className="container  text-end ">
-                    <DateTimePicker
-                      key={1}
-                      clearIcon={null}
-                      format={"y-MM-dd"}
-                      onChange={setStartFirstDate}
-                      value={startFirstDate}
-                    />
-                  </div>
-                </td>
-                <td>من</td>
-              </tr>
-            </thead>
-          </table>
-        </div>
-
-        <div className="table" id="mytable" ref={tableRef}>
-          <div
-            className="container text-center p-2"
-            style={{ marginTop: "20px" }}
-          >
-            <input
-              onChange={(e) => {
-                setReportTitle(e.target.value);
-              }}
-              type="text"
-              className="form-control text-center"
-              id="reportTitle"
-              style={{
-                fontSize: "20px",
-                borderStyle: "outset",
-              }}
-              dir="rtl"
+            <DateTimePicker
+              key={1}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setStartFirstDate}
+              value={startFirstDate}
             />
+
+            <div className="p-3 text-center"> من</div>
           </div>
+
           <div
-            className="container-fluid"
-            // style={{ height: 500, overflow: "auto" }}
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            <div className="container-fluid" style={{ overflowX: "auto" }}>
+            <DateTimePicker
+              key={2}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setEndFirstDate}
+              value={endFirstDate}
+            />
+
+            <div className="p-3 text-center"> الى</div>
+          </div>
+
+          <div className="container text-center">
+            <div
+              className="mt-2 mb-2 btn btn-light border border-2 border-primary text-primary"
+              onClick={() => {
+                loadWithdraws();
+              }}
+              id="no-print"
+            >
+              <b> تنفيذ </b>
+            </div>
+            <br />
+            <div
+              className="btn border border-2  border-danger text-danger  text-center"
+              onClick={() => {
+                if (reportTitle.length === 0) {
+                  alert("الرجاء ادخال عنوان للتقرير ");
+                  return;
+                }
+                exportToPDF();
+              }}
+              id="no-print"
+            >
+              <b> طباعة 📁 </b>
+            </div>
+          </div>
+
+          <div className="table" id="mytable" ref={tableRef}>
+            <div
+              className="container text-center p-2"
+              style={{ marginTop: "20px" }}
+            >
+              <p>عنوان التقرير </p>
+              <input
+                onChange={(e) => {
+                  setReportTitle(e.target.value);
+                }}
+                type="text"
+                className="form-control text-center"
+                id="reportTitle"
+                style={{
+                  fontSize: "20px",
+                  borderStyle: "outset",
+                }}
+                dir="rtl"
+              />
+            </div>
+            <div
+              className="container-fluid"
+              style={{ overflowX: "auto", width: window.innerWidth }}
+            >
               <BootstrapTable
-                className="text-center"
                 hover={true}
                 bordered={true}
                 striped={true}
@@ -315,70 +328,38 @@ function PersonalWithDrawReportPage() {
                 pagination={pagination}
                 filter={filterFactory({ afterFilter })}
               />
-            </div>
-
-            <div className="container text-center">
-              <table className="table table-hover">
-                <tbody>
-                  <tr>
-                    <td>
-                      {totalDinar.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "IQD",
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-                    <td>مجموع الدينار</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {totalDollar.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-                    <td>مجموع الدولار</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="container text-center">
+                <table className="table table-hover">
+                  <tbody>
+                    <tr>
+                      <td>
+                        {totalDinar.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "IQD",
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td>مجموع الدينار</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {totalDollar.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td>مجموع الدولار</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-          <table className="table table-strpied">
-            <tbody>
-              <br /> <br /> <br /> <br /> <br /> <br /> <br />
-              <br /> <br /> <br />
-              <tr>
-                <td></td>
-                <td>
-                  <h4> التدقيق </h4>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-
-                <td className="text-end">
-                  <h4> الحسابات </h4>
-                </td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-      </div>
-      <footer className="footer">
-        <div className="container text-center">
-          <p>
-            www.nurarch.com | IQ : +964 770 968 11 35 |TR : +90 539 77 290 77 |
-            info@nurarch.com 2 nd Floor, Aamal Bld , Amerat St.11 , Mansour ,
-            Baghdad, Iraq Yakuplu Mh , Gocman sk , No:1 , D:18 , Beylikduzu ,
-            Istanbul , Turkey
-          </p>
-        </div>
-      </footer>
+      )}
     </>
   );
 }

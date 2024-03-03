@@ -167,7 +167,7 @@ function DepositsReportPage() {
       });
     setLoading(false);
   }
-  const withdrawsColumns = [
+  const depositsColumns = [
     {
       dataField: "created_at",
       text: "تاريخ الانشاء",
@@ -237,83 +237,96 @@ function DepositsReportPage() {
   return (
     <>
       <NavBar />
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
+          <h3 className="text-center" id="test">
+            <b> تقرير الايداعات </b>
+          </h3>
 
-      <div className="container-fluid p-2 mt-2  text-dark ">
-        <h3 className="text-center" id="test">
-          <b> تقرير الايداعات </b>
-        </h3>
+          <div className="container text-center" id="no-print">
+            <btn
+              className="btn btn-primary text-light "
+              onClick={() => {
+                setActiveSearch(!activeSearch);
+              }}
+            >
+              <b> {activeSearch ? "اخفاء" : "تفعيل"} البحث</b>
+            </btn>
+          </div>
 
-        <div className="container text-end" id="no-print">
-          <btn
-            className="btn btn-primary text-light "
-            onClick={() => {
-              setActiveSearch(!activeSearch);
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <b> تفعيل البحث</b>
-          </btn>
-        </div>
+            <DateTimePicker
+              key={1}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setStartFirstDate}
+              value={startFirstDate}
+            />
 
-        <div className="container  p-4 mt-2 mb-2 ">
-          <table className="table">
-            <thead>
-              <tr>
-                <td>
-                  <div
-                    className="container btn border border-2  border-danger text-danger  text-center"
-                    onClick={exportToPDF}
-                    id="no-print"
-                  >
-                    <b> طباعة 📁 </b>
-                  </div>
-                </td>
-                <td>
-                  <div
-                    className="container btn btn-light border border-2 border-primary text-primary"
-                    onClick={loadDeposits}
-                    id="no-print"
-                  >
-                    <b> تنفيذ </b>
-                  </div>
-                </td>
-                <td>
-                  <div className="container  text-end ">
-                    <DateTimePicker
-                      key={2}
-                      clearIcon={null}
-                      format={"y-MM-dd"}
-                      onChange={setEndFirstDate}
-                      value={endFirstDate}
-                    />
-                  </div>
-                </td>
-                <td>الى</td>
-                <td>
-                  <div className="container  text-end ">
-                    <DateTimePicker
-                      key={1}
-                      clearIcon={null}
-                      format={"y-MM-dd"}
-                      onChange={setStartFirstDate}
-                      value={startFirstDate}
-                    />
-                  </div>
-                </td>
-                <td>من</td>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div className="container">
+            <div className="p-3 text-center"> من</div>
+          </div>
+
           <div
-            className="table-responsive table-strpied "
-            id="mytable"
-            ref={tableRef}
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
+            <DateTimePicker
+              key={2}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setEndFirstDate}
+              value={endFirstDate}
+            />
+
+            <div className="p-3 text-center"> الى</div>
+          </div>
+
+          <div className="container text-center">
+            <div
+              className="mt-2 mb-2 btn btn-light border border-2 border-primary text-primary"
+              onClick={() => {
+                loadDeposits();
+              }}
+              id="no-print"
+            >
+              <b> تنفيذ </b>
+            </div>
+            <br />
+            <div
+              className="btn border border-2  border-danger text-danger  text-center"
+              onClick={() => {
+                console.log(reportTitle.length);
+                if (reportTitle.length === 0) {
+                  alert("الرجاء ادخال عنوان للتقرير ");
+                  return;
+                }
+                exportToPDF();
+              }}
+              id="no-print"
+            >
+              <b> طباعة 📁 </b>
+            </div>
+          </div>
+
+          <div className="table" id="mytable" ref={tableRef}>
             <div
               className="container text-center p-2"
-              style={{ marginTop: "30px" }}
+              style={{ marginTop: "20px" }}
             >
+              <p>عنوان التقرير</p>
               <input
                 onChange={(e) => {
                   setReportTitle(e.target.value);
@@ -328,10 +341,7 @@ function DepositsReportPage() {
                 dir="rtl"
               />
             </div>
-            <div
-              className="container-fluid"
-              style={{ height: 500, overflow: "auto" }}
-            >
+            <div className="container-fluid" style={{ overflowX: "auto" }}>
               <BootstrapTable
                 className="text-center"
                 hover={true}
@@ -339,13 +349,14 @@ function DepositsReportPage() {
                 striped={true}
                 bootstrap4
                 keyField="id"
-                columns={withdrawsColumns}
+                columns={depositsColumns}
                 data={data}
+                // rowEvents={rowEvents}
                 pagination={pagination}
                 filter={filterFactory({ afterFilter })}
               />
               <div className="container text-center">
-                <table className="table table-strpied table-hover table-bordered">
+                <table className="table table-hover">
                   <tbody>
                     <tr>
                       <td>
@@ -373,31 +384,9 @@ function DepositsReportPage() {
                 </table>
               </div>
             </div>
-
-            <table className="table table-strpied">
-              <tbody>
-                <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                <br /> <br /> <br />
-                <tr>
-                  <td></td>
-                  <td>
-                    <h4> التدقيق </h4>
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-
-                  <td className="text-end">
-                    <h4> الحسابات </h4>
-                  </td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
