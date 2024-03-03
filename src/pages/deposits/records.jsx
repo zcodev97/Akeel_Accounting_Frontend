@@ -226,7 +226,8 @@ function DepositsPage() {
       ) : (
         <></>
       )}
-      <hr />
+    <>
+    <hr />
       <div className="container text-center">
         <h1 className="text-success"> الايداعات</h1>
       </div>
@@ -292,6 +293,7 @@ function DepositsPage() {
           filter={filterFactory()}
         />
       </div>
+    </>
     </>
   );
 }

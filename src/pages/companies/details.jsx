@@ -8,6 +8,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import Loading from "../loading";
 
 function CompanyDetailsPage() {
   const location = useLocation();
@@ -287,7 +288,10 @@ function CompanyDetailsPage() {
   return (
     <>
       <NavBar />
-      <div className="container text-center p-2 " style={{ fontSize: "24px" }}>
+      {loading ? <Loading /> :
+      
+      <> 
+       <div className="container text-center p-2 " style={{ fontSize: "24px" }}>
         <h1 style={{ fontWeight: "bold" }}>{location.state.name} </h1>
       </div>
 
@@ -423,6 +427,8 @@ function CompanyDetailsPage() {
           filter={filterFactory()}
         />
       </div>
+      </> 
+      }
     </>
   );
 }
