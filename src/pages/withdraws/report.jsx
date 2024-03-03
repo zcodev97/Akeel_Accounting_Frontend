@@ -219,7 +219,7 @@ function WithDrawReportPage() {
       ) : (
         <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
           <h3 className="text-center" id="test">
-            <b> تقرير الصرفيات </b>
+            <b>  تقرير الصرفيات للمشاريع </b>
           </h3>
 
           <div className="container text-center" id="no-print">
@@ -241,25 +241,8 @@ function WithDrawReportPage() {
               justifyContent: "center",
             }}
           >
-            <DateTimePicker
-              key={1}
-              clearIcon={null}
-              format={"y-MM-dd"}
-              onChange={setStartFirstDate}
-              value={startFirstDate}
-            />
+          
 
-            <div className="p-3 text-center"> من</div>
-          </div>
-
-          <div
-            className="container"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
             <DateTimePicker
               key={2}
               clearIcon={null}
@@ -269,7 +252,19 @@ function WithDrawReportPage() {
             />
 
             <div className="p-3 text-center"> الى</div>
+
+            <DateTimePicker
+              key={1}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setStartFirstDate}
+              value={startFirstDate}
+            />
+
+            <div className="p-3 text-center"> من</div>
+            
           </div>
+
 
           <div className="container text-center">
             <div
@@ -317,7 +312,7 @@ function WithDrawReportPage() {
                 dir="rtl"
               />
             </div>
-            <div className="container-fluid" style={{ overflowX: "auto" }}>
+            <div className="container-fluid" style={{ overflowX: "auto" ,width:'100%' ,fontSize:'14px'}}>
               <BootstrapTable
                 className="text-center"
                 hover={true}
@@ -361,7 +356,7 @@ function WithDrawReportPage() {
               </div>
             </div>
           </div>
-          <footer className="footer" style={{ display: "none" }}>
+          {/* <footer className="footer" style={{ display: "none" }}>
             <div className="container text-center">
               <p>
                 www.nurarch.com | IQ : +964 770 968 11 35 |TR : +90 539 77 290
@@ -370,7 +365,7 @@ function WithDrawReportPage() {
                 Beylikduzu , Istanbul , Turkey
               </p>
             </div>
-          </footer>
+          </footer> */}
         </div>
       )}
     </>

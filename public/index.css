@@ -47,6 +47,11 @@
     color: rgb(58, 56, 56);
     font-weight: bold;
   }
+
+  table {
+    width: 100%;
+    min-width: 100%;
+  } 
   footer {
     display: block !important;
   }

@@ -31,58 +31,20 @@ function DepositsReportPage() {
   const [reportTitle, setReportTitle] = useState("");
 
   const [loading, setLoading] = useState(false);
-
-  // function exportToPDF() {
-  //   const pdf = new jsPDF("landscape");
-
-  //   const input = tableRef.current;
-  //   html2canvas(input, { scale: 5.0 }).then((canvas) => {
-  //     const imgData = canvas.toDataURL("image/jpeg", 20); // JPEG format with quality 0.75
-
-  //     const pdf = new jsPDF({
-  //       orientation: "landscape", // Set orientation to landscape
-  //       unit: "mm", // Use millimeters as the unit for dimensions
-  //       format: "a4", // Use A4 size paper
-  //     });
-
-  //     const imgProps = pdf.getImageProperties(imgData);
-  //     const pdfWidth = pdf.internal.pageSize.getWidth();
-  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //     // Define margin values
-  //     const marginLeft = 2; // Left margin in mm
-  //     const marginRight = 2; // Right margin in mm
-  //     const marginTop = 5; // Top margin in mm
-  //     const marginBottom = 5; // Bottom margin in mm
-
-  //     // Calculate the adjusted width and height with margins
-  //     const adjustedWidth = pdfWidth - marginLeft - marginRight;
-  //     const adjustedHeight = pdfHeight - marginTop - marginBottom;
-
-  //     // Calculate the x and y positions to center the adjusted table
-  //     const xPosition =
-  //       marginLeft + (pdf.internal.pageSize.getWidth() - pdfWidth) / 2;
-  //     const yPosition =
-  //       marginTop + (pdf.internal.pageSize.getHeight() - pdfHeight) / 8;
-
-  //     pdf.addImage(
-  //       imgData,
-  //       "jpeg",
-  //       xPosition,
-  //       yPosition,
-  //       adjustedWidth,
-  //       adjustedHeight
-  //     );
-  //     pdf.save(
-  //       `تقرير الادخالات   - ${reportTitle} -  ${formatDate(
-  //         startFirstDate
-  //       )} - ${formatDate(endFirstDate)}.pdf`
-  //     );
-  //   });
-  // }
-
+ 
   const exportToPDF = () => {
+    // Save the current document title
+    const originalTitle = document.title;
+
+    // Set the document title to the custom title
+    document.title = `تقرير الايداعات  - ${reportTitle} -  ${formatDate(
+      startFirstDate
+    )} - ${formatDate(endFirstDate)}.pdf`;
     window.print();
+
+    window.addEventListener("afterprint", () => {
+      document.title = originalTitle;
+    });
   };
 
   function convertToNormalNumber(price) {
@@ -205,12 +167,7 @@ function DepositsReportPage() {
       sort: true,
       filter: activeSearch ? textFilter() : null,
     },
-    {
-      dataField: "container",
-      text: "القاصة",
-      sort: true,
-      filter: activeSearch ? textFilter() : null,
-    },
+    
     {
       dataField: "invoice_id",
       text: "تسلسل السجل",
@@ -264,6 +221,17 @@ function DepositsReportPage() {
               justifyContent: "center",
             }}
           >
+           
+
+            <DateTimePicker
+              key={2}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setEndFirstDate}
+              value={endFirstDate}
+            />
+
+            <div className="p-3 text-center"> الى</div>
             <DateTimePicker
               key={1}
               clearIcon={null}
@@ -275,24 +243,7 @@ function DepositsReportPage() {
             <div className="p-3 text-center"> من</div>
           </div>
 
-          <div
-            className="container"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <DateTimePicker
-              key={2}
-              clearIcon={null}
-              format={"y-MM-dd"}
-              onChange={setEndFirstDate}
-              value={endFirstDate}
-            />
-
-            <div className="p-3 text-center"> الى</div>
-          </div>
+        
 
           <div className="container text-center">
             <div
@@ -321,7 +272,7 @@ function DepositsReportPage() {
             </div>
           </div>
 
-          <div className="table" id="mytable" ref={tableRef}>
+          <div className="table-sm" id="mytable" ref={tableRef}>
             <div
               className="container text-center p-2"
               style={{ marginTop: "20px" }}
@@ -341,7 +292,7 @@ function DepositsReportPage() {
                 dir="rtl"
               />
             </div>
-            <div className="container-fluid" style={{ overflowX: "auto" }}>
+            <div className="container-fluid" style={{ overflowX: "auto" ,width:'100%' ,fontSize:'14px'}}> 
               <BootstrapTable
                 className="text-center"
                 hover={true}
@@ -355,8 +306,10 @@ function DepositsReportPage() {
                 pagination={pagination}
                 filter={filterFactory({ afterFilter })}
               />
-              <div className="container text-center">
-                <table className="table table-hover">
+             
+            </div>
+            <div className="container text-center "  >
+                <table className="table-sm table-hover">
                   <tbody>
                     <tr>
                       <td>
@@ -383,7 +336,6 @@ function DepositsReportPage() {
                   </tbody>
                 </table>
               </div>
-            </div>
           </div>
         </div>
       )}

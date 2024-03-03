@@ -236,6 +236,18 @@ function PersonalWithDrawReportPage() {
               justifyContent: "center",
             }}
           >
+        
+
+            <DateTimePicker
+              key={2}
+              clearIcon={null}
+              format={"y-MM-dd"}
+              onChange={setEndFirstDate}
+              value={endFirstDate}
+            />
+
+            <div className="p-3 text-center"> الى</div>
+
             <DateTimePicker
               key={1}
               clearIcon={null}
@@ -247,24 +259,7 @@ function PersonalWithDrawReportPage() {
             <div className="p-3 text-center"> من</div>
           </div>
 
-          <div
-            className="container"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <DateTimePicker
-              key={2}
-              clearIcon={null}
-              format={"y-MM-dd"}
-              onChange={setEndFirstDate}
-              value={endFirstDate}
-            />
-
-            <div className="p-3 text-center"> الى</div>
-          </div>
+          
 
           <div className="container text-center">
             <div
@@ -292,7 +287,7 @@ function PersonalWithDrawReportPage() {
             </div>
           </div>
 
-          <div className="table" id="mytable" ref={tableRef}>
+          <div className="table-sm " id="mytable" ref={tableRef}>
             <div
               className="container text-center p-2"
               style={{ marginTop: "20px" }}
@@ -312,10 +307,9 @@ function PersonalWithDrawReportPage() {
                 dir="rtl"
               />
             </div>
-            <div
-              className="container-fluid"
-              style={{ overflowX: "auto", width: window.innerWidth }}
-            >
+
+        
+            <div className="container-fluid" style={{ overflowX: "auto" ,width:'100%' ,fontSize:'14px'}}> 
               <BootstrapTable
                 hover={true}
                 bordered={true}
@@ -328,8 +322,10 @@ function PersonalWithDrawReportPage() {
                 pagination={pagination}
                 filter={filterFactory({ afterFilter })}
               />
-              <div className="container text-center">
-                <table className="table table-hover">
+           
+            </div>
+            <div className="container text-center">
+                <table className="table-sm table-hover">
                   <tbody>
                     <tr>
                       <td>
@@ -356,7 +352,6 @@ function PersonalWithDrawReportPage() {
                   </tbody>
                 </table>
               </div>
-            </div>
           </div>
         </div>
       )}

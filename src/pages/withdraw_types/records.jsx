@@ -80,7 +80,7 @@ function PersonTypePage() {
                 display:
                   localStorage.getItem("user_type") === "view"
                     ? "none"
-                    : "block",
+                    : "inline-block",
               }}
             >
               <h4>أضافة </h4>

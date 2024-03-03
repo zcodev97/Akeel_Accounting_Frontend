@@ -232,13 +232,13 @@ function PersonalWithdrawsPage() {
       <div className="container text-center">
         <h1 className="text-danger "> صرفيات الشركة</h1>
       </div>
-      <div className="container text-center">
+      <div className="container text-center" >
         <div
           className="btn btn-primary m-2"
           onClick={() => {
             navigate("/add_personal_withdraw");
           }}
-          style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'block'}}
+          style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'inline-block'}}
         >
           <b> اضافة</b>
         </div>
