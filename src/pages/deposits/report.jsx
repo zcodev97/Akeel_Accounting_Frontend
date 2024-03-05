@@ -16,6 +16,7 @@ import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import { SYSTEM_URL, formatDate } from "../../global";
 import html2canvas from "html2canvas";
 import { useLocation } from "react-router-dom";
+import logo from "../../logo.png";
 
 function DepositsReportPage() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function DepositsReportPage() {
   const [reportTitle, setReportTitle] = useState("");
 
   const [loading, setLoading] = useState(false);
- 
+
   const exportToPDF = () => {
     // Save the current document title
     const originalTitle = document.title;
@@ -167,7 +168,7 @@ function DepositsReportPage() {
       sort: true,
       filter: activeSearch ? textFilter() : null,
     },
-    
+
     {
       dataField: "invoice_id",
       text: "تسلسل السجل",
@@ -198,9 +199,19 @@ function DepositsReportPage() {
         <Loading />
       ) : (
         <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
-          <h3 className="text-center" id="test">
-            <b> تقرير الايداعات </b>
-          </h3>
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <img src={logo} alt="" srcset="" width={250} />
+            <h3 className="text-center" id="test">
+              <b> تقرير الايداعات </b>
+            </h3>
+          </div>
 
           <div className="container text-center" id="no-print">
             <btn
@@ -221,8 +232,6 @@ function DepositsReportPage() {
               justifyContent: "center",
             }}
           >
-           
-
             <DateTimePicker
               key={2}
               clearIcon={null}
@@ -242,8 +251,6 @@ function DepositsReportPage() {
 
             <div className="p-3 text-center"> من</div>
           </div>
-
-        
 
           <div className="container text-center">
             <div
@@ -292,7 +299,10 @@ function DepositsReportPage() {
                 dir="rtl"
               />
             </div>
-            <div className="container-fluid" style={{ overflowX: "auto" ,width:'100%' ,fontSize:'14px'}}> 
+            <div
+              className="container-fluid"
+              style={{ overflowX: "auto", width: "100%", fontSize: "14px" }}
+            >
               <BootstrapTable
                 className="text-center"
                 hover={true}
@@ -306,36 +316,35 @@ function DepositsReportPage() {
                 pagination={pagination}
                 filter={filterFactory({ afterFilter })}
               />
-             
             </div>
-            <div className="container text-center "  >
-                <table className="table-sm table-hover">
-                  <tbody>
-                    <tr>
-                      <td>
-                        {totalDinar.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "IQD",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td>مجموع الدينار</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {totalDollar.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "USD",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td>مجموع الدولار</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div className="container text-center ">
+              <table className="table-sm table-hover">
+                <tbody>
+                  <tr>
+                    <td>
+                      {totalDinar.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "IQD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td>مجموع الدينار</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {totalDollar.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td>مجموع الدولار</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

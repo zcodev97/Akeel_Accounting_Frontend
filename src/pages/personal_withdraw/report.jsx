@@ -16,7 +16,7 @@ import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import { SYSTEM_URL, formatDate } from "../../global";
 import html2canvas from "html2canvas";
 import { useLocation } from "react-router-dom";
-
+import logo from "../../logo.png";
 function PersonalWithDrawReportPage() {
   const navigate = useNavigate();
   const tableRef = useRef(null);
@@ -213,9 +213,19 @@ function PersonalWithDrawReportPage() {
         <Loading />
       ) : (
         <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
-          <h3 className="text-center" id="test">
-            <b> تقرير الصرفيات للشركة</b>
-          </h3>
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <img src={logo} alt="" srcset="" width={250} />
+            <h3 className="text-center" id="test">
+              <b> تقرير الصرفيات للشركة</b>
+            </h3>
+          </div>
 
           <div className="container text-center" id="no-print">
             <btn
@@ -236,8 +246,6 @@ function PersonalWithDrawReportPage() {
               justifyContent: "center",
             }}
           >
-        
-
             <DateTimePicker
               key={2}
               clearIcon={null}
@@ -258,8 +266,6 @@ function PersonalWithDrawReportPage() {
 
             <div className="p-3 text-center"> من</div>
           </div>
-
-          
 
           <div className="container text-center">
             <div
@@ -308,8 +314,10 @@ function PersonalWithDrawReportPage() {
               />
             </div>
 
-        
-            <div className="container-fluid" style={{ overflowX: "auto" ,width:'100%' ,fontSize:'14px'}}> 
+            <div
+              className="container-fluid"
+              style={{ overflowX: "auto", width: "100%", fontSize: "14px" }}
+            >
               <BootstrapTable
                 hover={true}
                 bordered={true}
@@ -322,36 +330,35 @@ function PersonalWithDrawReportPage() {
                 pagination={pagination}
                 filter={filterFactory({ afterFilter })}
               />
-           
             </div>
             <div className="container text-center">
-                <table className="table-sm table-hover">
-                  <tbody>
-                    <tr>
-                      <td>
-                        {totalDinar.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "IQD",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td>مجموع الدينار</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {totalDollar.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "USD",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td>مجموع الدولار</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <table className="table-sm table-hover">
+                <tbody>
+                  <tr>
+                    <td>
+                      {totalDinar.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "IQD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td>مجموع الدينار</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {totalDollar.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td>مجموع الدولار</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

@@ -16,7 +16,7 @@ import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import { SYSTEM_URL, formatDate } from "../../global";
 import html2canvas from "html2canvas";
 import { useLocation } from "react-router-dom";
-
+import logo from "../../logo.png";
 function WithDrawReportPage() {
   const navigate = useNavigate();
   const tableRef = useRef(null);
@@ -218,9 +218,19 @@ function WithDrawReportPage() {
         <Loading />
       ) : (
         <div className="container-fluid p-2 mt-2  border-primary text-dark rounded ">
-          <h3 className="text-center" id="test">
-            <b>  تقرير الصرفيات للمشاريع </b>
-          </h3>
+          <div
+            className="container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <img src={logo} alt="" srcset="" width={250} />
+            <h3 className="text-center" id="test">
+              <b> تقرير الصرفيات للمشاريع </b>
+            </h3>
+          </div>
 
           <div className="container text-center" id="no-print">
             <btn
@@ -241,8 +251,6 @@ function WithDrawReportPage() {
               justifyContent: "center",
             }}
           >
-          
-
             <DateTimePicker
               key={2}
               clearIcon={null}
@@ -262,9 +270,7 @@ function WithDrawReportPage() {
             />
 
             <div className="p-3 text-center"> من</div>
-            
           </div>
-
 
           <div className="container text-center">
             <div
@@ -312,7 +318,10 @@ function WithDrawReportPage() {
                 dir="rtl"
               />
             </div>
-            <div className="container-fluid" style={{ overflowX: "auto" ,width:'100%' ,fontSize:'14px'}}>
+            <div
+              className="container-fluid"
+              style={{ overflowX: "auto", width: "100%", fontSize: "14px" }}
+            >
               <BootstrapTable
                 className="text-center"
                 hover={true}
