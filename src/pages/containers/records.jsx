@@ -147,19 +147,24 @@ function ContainersPage() {
             </div>
           </div>
 
-          <BootstrapTable
-            className="text-center"
-            hover={true}
-            bordered={true}
-            bootstrap4
-            keyField="id"
-            columns={columns}
-            data={data}
-            pagination={pagination}
-            filter={filterFactory()}
-            rowEvents={rowEvents}
-            style={{ overflowX: "auto" }}
-          />
+          <div
+            className="container-fluid"
+            style={{ overflowX: "auto", margin: "0px", padding: "0px" }}
+          >
+            <BootstrapTable
+              className="text-center"
+              hover={true}
+              bordered={true}
+              bootstrap4
+              keyField="id"
+              columns={columns}
+              data={data}
+              pagination={pagination}
+              filter={filterFactory()}
+              rowEvents={rowEvents}
+              style={{ overflowX: "auto" }}
+            />
+          </div>
         </div>
       )}
     </>

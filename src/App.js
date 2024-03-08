@@ -33,84 +33,155 @@ import PersonalWithdrawsPage from "./pages/personal_withdraw/records";
 import PersonalWithDrawDetialsPage from "./pages/personal_withdraw/details";
 import AddPersonalWithdrawPage from "./pages/personal_withdraw/add";
 import PersonalWithDrawReportPage from "./pages/personal_withdraw/report";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    // Add event listeners for online/offline events
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Clean up event listeners when the component unmounts
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   return (
-    <div className="App">
-      <div className="container-fluid bg-white" style={{ height: "100vh" }}>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                localStorage.getItem("token") === null ||
-                localStorage.getItem("token") === undefined ? (
-                  <LoginPage />
-                ) : (
-                  <ContainersPage />
-                )
-              }
-            />
+    <>
+      {isOnline ? (
+        <div className="App">
+          <div className="container-fluid bg-white" style={{ height: "100vh" }}>
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    localStorage.getItem("token") === null ||
+                    localStorage.getItem("token") === undefined ? (
+                      <LoginPage />
+                    ) : (
+                      <ContainersPage />
+                    )
+                  }
+                />
 
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/containers" element={<ContainersPage />} />
-            <Route
-              path="/container_details"
-              element={<ContainerDetailsPage />}
-            />
-            <Route path="/add_container" element={<AddContainerPage />} />
-            <Route path="/companies" element={<CompaniesPage />} />
-            <Route path="/personal" element={<PersonalCompaniesPage />} />
-            <Route path="/add_personal" element={<AddPersonalPage />} />
-            <Route path="/company_details" element={<CompanyDetailsPage />} />
-            <Route path="/add_company" element={<AddCompanyPage />} />
-            <Route path="/personal_withdraws" element={<PersonalWithdrawsPage />} />
-            <Route path="/personal_withdraw_details" element={<PersonalWithDrawDetialsPage />} />
-            <Route path="/add_personal_withdraw" element={<AddPersonalWithdrawPage />} />
-            <Route path="/personal_withdraw_report" element={<PersonalWithDrawReportPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/containers" element={<ContainersPage />} />
+                <Route
+                  path="/container_details"
+                  element={<ContainerDetailsPage />}
+                />
+                <Route path="/add_container" element={<AddContainerPage />} />
+                <Route path="/companies" element={<CompaniesPage />} />
+                <Route path="/personal" element={<PersonalCompaniesPage />} />
+                <Route path="/add_personal" element={<AddPersonalPage />} />
+                <Route
+                  path="/company_details"
+                  element={<CompanyDetailsPage />}
+                />
+                <Route path="/add_company" element={<AddCompanyPage />} />
+                <Route
+                  path="/personal_withdraws"
+                  element={<PersonalWithdrawsPage />}
+                />
+                <Route
+                  path="/personal_withdraw_details"
+                  element={<PersonalWithDrawDetialsPage />}
+                />
+                <Route
+                  path="/add_personal_withdraw"
+                  element={<AddPersonalWithdrawPage />}
+                />
+                <Route
+                  path="/personal_withdraw_report"
+                  element={<PersonalWithDrawReportPage />}
+                />
 
+                <Route path="/withdraws" element={<WithdrawsPage />} />
+                <Route
+                  path="/withdraw_details"
+                  element={<WithDrawDetialsPage />}
+                />
+                <Route path="/withdraw_types" element={<PersonTypePage />} />
+                <Route
+                  path="/add_withdraw_type"
+                  element={<AddPersonTypePage />}
+                />
+                <Route path="/add_withdraw" element={<AddWithdrawPage />} />
+                <Route
+                  path="/withdraw_report"
+                  element={<WithDrawReportPage />}
+                />
+                <Route
+                  path="/deposits_report"
+                  element={<DepositsReportPage />}
+                />
+                {/*  */}
+                <Route path="/deposits" element={<DepositsPage />} />
+                <Route
+                  path="/deposit_details"
+                  element={<DepositDetailsPage />}
+                />
+                <Route path="/add_deposit" element={<AddDepositPage />} />
 
-            <Route path="/withdraws" element={<WithdrawsPage />} />
-            <Route path="/withdraw_details" element={<WithDrawDetialsPage />} />
-            <Route path="/withdraw_types" element={<PersonTypePage />} />
-            <Route path="/add_withdraw_type" element={<AddPersonTypePage />} />
-            <Route path="/add_withdraw" element={<AddWithdrawPage />} />
-            <Route path="/withdraw_report" element={<WithDrawReportPage />} />
-            <Route path="/deposits_report" element={<DepositsReportPage />} />
-            {/*  */}
-            <Route path="/deposits" element={<DepositsPage />} />
-            <Route path="/deposit_details" element={<DepositDetailsPage />} />
-            <Route path="/add_deposit" element={<AddDepositPage />} />
+                {/* invoices */}
+                <Route
+                  path="/invoice_details"
+                  element={<InvoiceDetialsPage />}
+                />
+                <Route path="/add_invoice" element={<AddInvoicePage />} />
+                <Route path="/invoices" element={<InvoicesPage />} />
 
-            {/* invoices */}
-            <Route path="/invoice_details" element={<InvoiceDetialsPage />} />
-            <Route path="/add_invoice" element={<AddInvoicePage />} />
-            <Route path="/invoices" element={<InvoicesPage />} />
+                {/* building calc  */}
+                <Route
+                  path="/building_calc_details"
+                  element={<BuildingCalcDetailsPage />}
+                />
+                <Route
+                  path="/add_building_calc"
+                  element={<AddBuildingCalcPage />}
+                />
+                <Route path="/building_calcs" element={<BuildingCalcsPage />} />
 
-            {/* building calc  */}
-            <Route
-              path="/building_calc_details"
-              element={<BuildingCalcDetailsPage />}
-            />
-            <Route
-              path="/add_building_calc"
-              element={<AddBuildingCalcPage />}
-            />
-            <Route path="/building_calcs" element={<BuildingCalcsPage />} />
-
-            {/* worker calc */}
-            <Route
-              path="/worker_calc_details"
-              element={<WorkerCalcDetailsPage />}
-            />
-            <Route path="/add_worker_calc" element={<AddWorkerCalcPage />} />
-            <Route path="/worker_calcs" element={<WorkerCalcsPage />} />
-            {/*  */}
-            <Route path="*" element={<NoPage />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </div>
+                {/* worker calc */}
+                <Route
+                  path="/worker_calc_details"
+                  element={<WorkerCalcDetailsPage />}
+                />
+                <Route
+                  path="/add_worker_calc"
+                  element={<AddWorkerCalcPage />}
+                />
+                <Route path="/worker_calcs" element={<WorkerCalcsPage />} />
+                {/*  */}
+                <Route path="*" element={<NoPage />} />
+              </Routes>
+            </BrowserRouter>
+          </div>
+        </div>
+      ) : (
+        <div
+          className="container text-center text-danger border rounded  mt-4 d-flex"
+          style={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: window.innerHeight,
+          }}
+        >
+          <p> لايوجد اتصال انترنت </p>
+        </div>
+      )}
+    </>
   );
 }
 
