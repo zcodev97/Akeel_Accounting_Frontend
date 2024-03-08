@@ -7,6 +7,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import Loading from "../loading";
 function AddDepositPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -152,232 +153,236 @@ function AddDepositPage() {
     <>
       <NavBar />
 
-      <div className="container-fluid text-center">
-        <div className="container border rounded m-1 p-1 ">
-          <h2>
-            <b> اضافة ايداع</b>
-          </h2>
-        </div>
-        <table className="table table-bordered table-striped table-hover">
-          <thead>
-            <tr>
-              <td className="text-light bg-dark">
-                <h3>الادخال</h3>
-              </td>
-              <td className="text-light bg-dark">
-                <h3>العنوان</h3>
-              </td>
-            </tr>
-          </thead>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="container-fluid text-center">
+          <div className="container border rounded m-1 p-1 ">
+            <h2>
+              <b> اضافة ايداع</b>
+            </h2>
+          </div>
+          <table className="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <td className="text-light bg-dark">
+                  <h3>الادخال</h3>
+                </td>
+                <td className="text-light bg-dark">
+                  <h3>العنوان</h3>
+                </td>
+              </tr>
+            </thead>
 
-          <tbody>
-            {/*  */}
-            <tr>
-              <td>
-                <input
-                  onChange={(e) => {
-                    setReceivedFrom(e.target.value);
-                  }}
-                  type="text"
-                  className="form-control text-center border border-dark"
-                  id="username"
-                  style={{ fontSize: "20px" }}
-                />
-              </td>
-              <td>
-                <b> استلمت من </b>
-              </td>
-            </tr>
-            {/*  */}
-            {/*  */}
-            <tr>
-              <td>
-                <div
-                  className="container text-center"
-                  style={{ display: "flex" }}
-                >
-                  <p>
-                    {Number(totalDinar).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "IQD",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
-                    })}
-                  </p>
-                  <div className="container" style={{ width: "100px" }}></div>
+            <tbody>
+              {/*  */}
+              <tr>
+                <td>
                   <input
                     onChange={(e) => {
-                      setTotalDinar(e.target.value);
+                      setReceivedFrom(e.target.value);
                     }}
-                    type="number"
+                    type="text"
                     className="form-control text-center border border-dark"
                     id="username"
                     style={{ fontSize: "20px" }}
                   />
-                </div>
-              </td>
-              <td>
-                <b> مبلغ الدينار</b>
-              </td>
-            </tr>
-            {/*  */}
-            <tr>
-              <td>
-                <div
-                  className="container text-center"
-                  style={{ display: "flex" }}
-                >
-                  <p>
-                    {Number(totalDollar).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
-                    })}
-                  </p>
-                  <div className="container" style={{ width: "100px" }}></div>
-                  <input
+                </td>
+                <td>
+                  <b> استلمت من </b>
+                </td>
+              </tr>
+              {/*  */}
+              {/*  */}
+              <tr>
+                <td>
+                  <div
+                    className="container text-center"
+                    style={{ display: "flex" }}
+                  >
+                    <p>
+                      {Number(totalDinar).toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "IQD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
+                    <div className="container" style={{ width: "100px" }}></div>
+                    <input
+                      onChange={(e) => {
+                        setTotalDinar(e.target.value);
+                      }}
+                      type="number"
+                      className="form-control text-center border border-dark"
+                      id="username"
+                      style={{ fontSize: "20px" }}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <b> مبلغ الدينار</b>
+                </td>
+              </tr>
+              {/*  */}
+              <tr>
+                <td>
+                  <div
+                    className="container text-center"
+                    style={{ display: "flex" }}
+                  >
+                    <p>
+                      {Number(totalDollar).toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
+                    <div className="container" style={{ width: "100px" }}></div>
+                    <input
+                      onChange={(e) => {
+                        setTotalDollar(e.target.value);
+                      }}
+                      type="number"
+                      className="form-control text-center border border-dark"
+                      id="username"
+                      style={{ fontSize: "20px" }}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <b>مبلغ الدولار</b>
+                </td>
+              </tr>
+              {/*  */}
+              {/*  */}
+              <tr>
+                <td style={{ fontWeight: "bold" }}>
+                  <div className="container border border-dark pt-2 pb-2 rounded">
+                    <Select
+                      defaultValue={selectedContainer}
+                      options={containersDropDownMenu}
+                      onChange={(opt) => setSelectedContainer(opt)}
+                      placeholder={"القاصة"}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <b> القاصة </b>
+                </td>
+              </tr>
+              {/*  */}
+              {/*  */}
+              <tr>
+                <td style={{ fontWeight: "bold" }}>
+                  <div className="container border border-dark pt-2 pb-2 rounded">
+                    <Select
+                      defaultValue={selectedCompany}
+                      options={companiesDropDownMenu}
+                      onChange={(opt) => setSelectedCompany(opt)}
+                      placeholder={"القاصة"}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <b> المشروع </b>
+                </td>
+              </tr>
+              {/*  */}
+              {/*  */}
+              <tr>
+                <td>
+                  <textarea
                     onChange={(e) => {
-                      setTotalDollar(e.target.value);
+                      setDescription(e.target.value);
                     }}
-                    type="number"
-                    className="form-control text-center border border-dark"
-                    id="username"
+                    dir="rtl"
+                    class="form-control"
+                    rows="5"
+                    id="comment"
                     style={{ fontSize: "20px" }}
-                  />
-                </div>
-              </td>
-              <td>
-                <b>مبلغ الدولار</b>
-              </td>
-            </tr>
-            {/*  */}
-            {/*  */}
-            <tr>
-              <td style={{ fontWeight: "bold" }}>
-                <div className="container border border-dark pt-2 pb-2 rounded">
-                  <Select
-                    defaultValue={selectedContainer}
-                    options={containersDropDownMenu}
-                    onChange={(opt) => setSelectedContainer(opt)}
-                    placeholder={"القاصة"}
-                  />
-                </div>
-              </td>
-              <td>
-                <b> القاصة </b>
-              </td>
-            </tr>
-            {/*  */}
-            {/*  */}
-            <tr>
-              <td style={{ fontWeight: "bold" }}>
-                <div className="container border border-dark pt-2 pb-2 rounded">
-                  <Select
-                    defaultValue={selectedCompany}
-                    options={companiesDropDownMenu}
-                    onChange={(opt) => setSelectedCompany(opt)}
-                    placeholder={"القاصة"}
-                  />
-                </div>
-              </td>
-              <td>
-                <b> المشروع </b>
-              </td>
-            </tr>
-            {/*  */}
-            {/*  */}
-            <tr>
-              <td>
-                <textarea
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
-                  dir="rtl"
-                  class="form-control"
-                  rows="5"
-                  id="comment"
-                  style={{ fontSize: "20px" }}
-                ></textarea>
-              </td>
-              <td>
-                <b> التفاصيل </b>
-              </td>
-            </tr>
-            {/*  */}
-            <tr>
-              <td>
-                <div className="container border border-dark pt-2 pb-2 rounded">
-                  <DateTimePicker
-                    key={1}
-                    clearIcon={null}
-                    format={"y-MM-dd"}
-                    onChange={setRecordDate}
-                    value={recordDate}
-                  />
-                </div>
-              </td>
-              <td>
-                <b> تاريخ السجل </b>
-              </td>
-            </tr>
-            {/*  */}
-          </tbody>
-        </table>
-        <div className="row">
-          <div className="col-md-6">
-            <div
-              className="btn btn-danger p-2 mt-2 mb-2"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <h4> رجوع 🔙</h4>
+                  ></textarea>
+                </td>
+                <td>
+                  <b> التفاصيل </b>
+                </td>
+              </tr>
+              {/*  */}
+              <tr>
+                <td>
+                  <div className="container border border-dark pt-2 pb-2 rounded">
+                    <DateTimePicker
+                      key={1}
+                      clearIcon={null}
+                      format={"y-MM-dd"}
+                      onChange={setRecordDate}
+                      value={recordDate}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <b> تاريخ السجل </b>
+                </td>
+              </tr>
+              {/*  */}
+            </tbody>
+          </table>
+          <div className="row">
+            <div className="col-md-6">
+              <div
+                className="btn btn-danger p-2 mt-2 mb-2"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <h4> رجوع 🔙</h4>
+              </div>
             </div>
-          </div>
-          <div className="col-md-6">
-            <div
-              className="btn btn-success p-2 mt-2 mb-2"
-              onClick={() => {
-                if (receivedFrom.length === 0) {
-                  alert("الرجاء ادخال من اي شخص استملت المبلغ !");
-                  return;
-                }
-                if (totalDinar.length === 0) {
-                  alert("الرجاء ادخال مبلغ الدينار !");
-                  return;
-                }
-                if (totalDollar.length === 0) {
-                  alert("الرجاء ادخال مبلغ الدولار !");
-                  return;
-                }
+            <div className="col-md-6">
+              <div
+                className="btn btn-success p-2 mt-2 mb-2"
+                onClick={() => {
+                  if (receivedFrom.length === 0) {
+                    alert("الرجاء ادخال من اي شخص استملت المبلغ !");
+                    return;
+                  }
+                  if (totalDinar.length === 0) {
+                    alert("الرجاء ادخال مبلغ الدينار !");
+                    return;
+                  }
+                  if (totalDollar.length === 0) {
+                    alert("الرجاء ادخال مبلغ الدولار !");
+                    return;
+                  }
 
-                if (totalDollar.length === 0) {
-                  alert("الرجاء ادخال مبلغ الدولار !");
-                  return;
-                }
-                if (Object.entries(selectedCompany).length === 0) {
-                  alert("الرجاء ادخال اسم المشروع !");
-                  return;
-                }
-                if (Object.entries(selectedContainer).length === 0) {
-                  alert("أسم القاصة !");
-                  return;
-                }
+                  if (totalDollar.length === 0) {
+                    alert("الرجاء ادخال مبلغ الدولار !");
+                    return;
+                  }
+                  if (Object.entries(selectedCompany).length === 0) {
+                    alert("الرجاء ادخال اسم المشروع !");
+                    return;
+                  }
+                  if (Object.entries(selectedContainer).length === 0) {
+                    alert("أسم القاصة !");
+                    return;
+                  }
 
-                if (description.length === 0) {
-                  alert("الرجاء ادخال التفاصيل !");
-                  return;
-                }
+                  if (description.length === 0) {
+                    alert("الرجاء ادخال التفاصيل !");
+                    return;
+                  }
 
-                addRecord();
-              }}
-            >
-              <h4> حفظ القيد</h4>
+                  addRecord();
+                }}
+              >
+                <h4> حفظ القيد</h4>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

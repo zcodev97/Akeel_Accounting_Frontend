@@ -24,7 +24,15 @@ function ContainersPage() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else if (response.status === 401) {
+          alert("You Don't Have Permission");
+          navigate("/login", { replace: true });
+          return;
+        }
+      })
       .then((data) => {
         data.map((i) => {
           i.total_dinar = i.total_dinar.toLocaleString("en-US", {
@@ -124,7 +132,9 @@ function ContainersPage() {
             className="container text-center"
             style={{
               display:
-                localStorage.getItem("user_type") === "view" ? "none" : "block",
+                localStorage.getItem("user_type") === "view"
+                  ? "none"
+                  : "inline-block",
             }}
           >
             <div

@@ -8,6 +8,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import Loading from "../loading";
 
 function PersonalWithdrawsPage() {
   const location = useLocation();
@@ -57,11 +58,9 @@ function PersonalWithdrawsPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-       
         let filtered_data = data.filter(
           (i) => i.withdraw_type?.title === "شخصي"
         );
-
 
         setTotalWithdrawsDinar(
           filtered_data.reduce((accumulator, currentItem) => {
@@ -185,7 +184,7 @@ function PersonalWithdrawsPage() {
       sort: true,
       filter: textFilter(),
     },
-   
+
     {
       dataField: "company_name",
       text: "عنوان الصرفية",
@@ -219,82 +218,94 @@ function PersonalWithdrawsPage() {
   return (
     <>
       <NavBar />
-      {localStorage.getItem("user_type") === "supervisor" ? (
+
+      {loading ? (
+        <Loading />
+      ) : (
         <>
+          {localStorage.getItem("user_type") === "supervisor" ? (
+            <>
+              <div className="container text-center">
+                <h3> {localStorage.getItem("company_name")}</h3>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+          <hr />
           <div className="container text-center">
-            <h3> {localStorage.getItem("company_name")}</h3>
+            <h1 className="text-danger "> صرفيات الشركة</h1>
+          </div>
+          <div className="container text-center">
+            <div
+              className="btn btn-primary m-2"
+              onClick={() => {
+                navigate("/add_personal_withdraw");
+              }}
+              style={{
+                display:
+                  localStorage.getItem("user_type") === "view"
+                    ? "none"
+                    : "inline-block",
+              }}
+            >
+              <b> اضافة</b>
+            </div>
+            <div
+              className="btn btn-success m-2"
+              onClick={() => {
+                navigate("/personal_withdraw_report");
+              }}
+            >
+              <b> تقرير </b>
+            </div>
+          </div>
+
+          <div className="container text-center">
+            <table className="table table-strpied table-hover ">
+              <tbody>
+                <tr>
+                  <td className="text-end">
+                    {totalWithdrawsDinar.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "IQD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                  <td>مجموع الدينار</td>
+                </tr>
+                <tr>
+                  <td className="text-end">
+                    {totalWithdrawsDollar.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                  <td>مجموع الدولار</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="container-fluid" style={{ overflowX: "auto" }}>
+            <BootstrapTable
+              className="text-center"
+              hover={true}
+              bordered={true}
+              bootstrap4
+              keyField="id"
+              columns={withdrawsColumns}
+              data={withdraws}
+              pagination={pagination}
+              rowEvents={rowEvents}
+              filter={filterFactory()}
+            />
           </div>
         </>
-      ) : (
-        <></>
       )}
-      <hr />
-      <div className="container text-center">
-        <h1 className="text-danger "> صرفيات الشركة</h1>
-      </div>
-      <div className="container text-center" >
-        <div
-          className="btn btn-primary m-2"
-          onClick={() => {
-            navigate("/add_personal_withdraw");
-          }}
-          style={{ display: localStorage.getItem('user_type') === 'view' ? 'none' : 'inline-block'}}
-        >
-          <b> اضافة</b>
-        </div>
-        <div
-          className="btn btn-success m-2"
-          onClick={() => {
-            navigate("/personal_withdraw_report");
-          }}
-        >
-          <b> تقرير </b>
-        </div>
-      </div>
-
-      <div className="container text-center">
-        <table className="table table-strpied table-hover ">
-          <tbody>
-            <tr>
-              <td className="text-end">
-                {totalWithdrawsDinar.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "IQD",
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
-                })}
-              </td>
-              <td>مجموع الدينار</td>
-            </tr>
-            <tr>
-              <td className="text-end">
-                {totalWithdrawsDollar.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
-                })}
-              </td>
-              <td>مجموع الدولار</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="container-fluid" style={{ overflowX: "auto" }}>
-        <BootstrapTable
-          className="text-center"
-          hover={true}
-          bordered={true}
-          bootstrap4
-          keyField="id"
-          columns={withdrawsColumns}
-          data={withdraws}
-          pagination={pagination}
-          rowEvents={rowEvents}
-          filter={filterFactory()}
-        />
-      </div>
     </>
   );
 }
